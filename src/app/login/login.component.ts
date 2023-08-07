@@ -20,7 +20,7 @@ constructor(private http: HttpClient,private cookie:CookieUtils) {
 
     this.http.post<any>(`${this.apiUrl}/api/v1/auth/login`, user).subscribe(
       (response) => {
-        this.cookie.setCookie()
+        this.cookie.setCookie("CARGO_TOKEN",response["token"],1,"/login")
         console.log('Kullanıcı girişi başarılı:', response);
       },
       (error) => {
