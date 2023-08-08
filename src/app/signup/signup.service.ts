@@ -9,6 +9,7 @@ import {UserSign} from "./UserSign";
 
 export class SignupService{
   apiUrl="http://localhost:8080";
+
   constructor(private httpClient: HttpClient) {
   }
 
@@ -16,7 +17,7 @@ export class SignupService{
   registerUser(userDto : UserSign):Observable<Object>{
 
 console.log(userDto);
-return this.httpClient.post<any>(`${this.apiUrl}/api/v1/user/create-user` ,userDto);
+return this.httpClient.post(`${this.apiUrl}/api/v1/user/create-user` ,userDto);
 
   }
 

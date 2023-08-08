@@ -4,6 +4,9 @@ import {UserSign} from "./UserSign";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {matchpassword} from "./matchpassword.validator";
 import {SignupService} from "./signup.service";
+import {UserDTO} from "../login/UserDTO";
+import {HttpClient} from "@angular/common/http";
+import {CookieUtils} from "../login/cookieUtils";
 
 @Component({
   selector: 'app-signup',
@@ -46,14 +49,22 @@ export class SignupComponent {
     this.user.password = this.signupForm.get('password')?.value;
     this.user.identityNumber = this.signupForm.get('identityNumber')?.value;
     console.log(this.user);
-    this.signupService.registerUser(this.user).subscribe(data => {alert("User is registered succesfully")},
-      error => alert("Sorry user not registered"))
-    this.signupForm.patchValue({
-      user: this.user
-    })
+    this.signupService.registerUser(this.user).subscribe(res =>{
+        alert("User is registered succesfully")
+    }
+      ,
+      error => alert("Sorry user not registered"));
 
-    this.router.navigate(['/main-page']);
+
+ /* constructor(private http: HttpClient,private cookie:CookieUtils, private router:Router) {}
+
+  signup(): void {
+    const user:UserRegDTO= new UserRegDTO();*/
+
+
+    //this.router.navigate(['/main-page']);
 
   }
+
 
 }
