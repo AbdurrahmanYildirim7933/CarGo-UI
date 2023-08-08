@@ -1,4 +1,4 @@
-export class UserSgnDTO{
+export class UserSign {
   name:string;
   lastName:string;
   email:string;
@@ -8,16 +8,13 @@ export class UserSgnDTO{
   identityNumber:string;
 
 
-  constructor(name:string,lastName:string,email:string,password:string,cpassword:string,phone:string,identityNumber:string) {
-    this.lastName =lastName;
+  constructor(name:string,lastName:string,email:string,password:string,phone:string,identityNumber:string) {
     this.name=name;
+    this.lastName =lastName;
     this.email=email;
     this.password=password;
-    this.cpassword=cpassword;
     this.phone=phone;
     this.identityNumber=identityNumber;
   }
 }
 
-export class UserRegDTO {
-}
