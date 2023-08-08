@@ -1,4 +1,4 @@
-export class UserDTO{
+export class UserSgnDTO{
   name:string;
   lastName:string;
   email:string;

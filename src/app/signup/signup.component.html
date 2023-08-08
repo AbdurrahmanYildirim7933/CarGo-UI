@@ -6,47 +6,49 @@
           <div class="card-body p-5 text-center">
 
             <div class="mb-md-5 mt-md-4 pb-5">
+              <form (ngSubmit)="signup()" [formGroup]="signupForm" novalidate>
+                <h2 class="fw-bold mb-2 text-uppercase">Sign Up</h2>
 
-              <h2 class="fw-bold mb-2 text-uppercase">Sign Up</h2>
-              <p class="text-white-50 mb-5">Please enter your information </p>
+                <p class="text-white-50 mb-5">Please enter your information </p>
 
-              <div class="form-outline form-white mb-4">
-                <input type="name" id="typeNameX" class="form-control form-control-lg" />
-                <label class="form-label" for="typeNameX">Name</label>
-              </div>
+                <div class="form-outline form-white mb-4">
+                  <input [(ngModel)]="userDto.name" type="name" id="typeNameX" class="form-control form-control-lg" />
+                  <label class="form-label" for="typeNameX">Name</label>
+                </div>
 
-              <div class="form-outline form-white mb-4">
-                <input type="lastName" id="typelastNameX" class="form-control form-control-lg" />
-                <label class="form-label" for="typelastNameX">Last Name</label>
-              </div>
+                <div class="form-outline form-white mb-4">
+                  <input [(ngModel)]="userDto.lastName" type="lastName" id="typelastNameX" class="form-control form-control-lg" />
+                  <label class="form-label" for="typelastNameX">Last Name</label>
+                </div>
 
-              <div class="form-outline form-white mb-4">
-                <input type="identityNumber" id="typeIdentityNumberX" class="form-control form-control-lg" />
-                <label class="form-label" for="typeIdentityNumberX">Identity Number</label>
-              </div>
+                <div class="form-outline form-white mb-4">
+                  <input [(ngModel)]="userDto.identityNumber" type="identityNumber" id="typeIdentityNumberX" class="form-control form-control-lg" />
+                  <label class="form-label" for="typeIdentityNumberX">Identity Number</label>
+                </div>
 
-              <div class="form-outline form-white mb-4">
-                <input type="phone" id="typePhoneX" class="form-control form-control-lg" />
-                <label class="form-label" for="typePhoneX">Phone</label>
-              </div>
+                <div class="form-outline form-white mb-4">
+                  <input [(ngModel)]="userDto.phone" type="phone" id="typePhoneX" class="form-control form-control-lg" />
+                  <label class="form-label" for="typePhoneX">Phone</label>
+                </div>
 
-              <div class="form-outline form-white mb-4">
-                <input type="email" id="typeEmailX" class="form-control form-control-lg" />
-                <label class="form-label" for="typeEmailX">Email</label>
-              </div>
+                <div class="form-outline form-white mb-4">
+                  <input [(ngModel)]="userDto.email" type="email" id="typeEmailX" class="form-control form-control-lg" />
+                  <label class="form-label" for="typeEmailX">Email</label>
+                </div>
 
-              <div class="form-outline form-white mb-4">
-                <input type="password" id="typePasswordX" class="form-control form-control-lg" />
-                <label class="form-label" for="typePasswordX">Password</label>
-              </div>
+                <div class="form-outline form-white mb-4">
+                  <input [(ngModel)]="userDto.password" type="password" id="typePasswordX" class="form-control form-control-lg" formControlName="Password" />
+                  <label class="form-label" for="typePasswordX">Password</label>
+                </div>
 
-              <div class="form-outline form-white mb-4">
-                <input type="confirmPassword" id="typeConfirmPasswordX" class="form-control form-control-lg" />
-                <label class="form-label" for="typeConfirmPasswordX">Confirm Passord</label>
-              </div>
-
-              <button (click)="signup()" type="submit" class="btn btn-outline-light btn-lg px-5" type="submit">Sign Up</button>
-
+                <div class="form-outline form-white mb-4">
+                  <input [(ngModel)]="userDto.cpassword" type="confirmPassword" id="typeConfirmPasswordX" class="form-control form-control-lg" formControlName="ConfirmPassword"/>
+                  <label class="form-label" for="typeConfirmPasswordX">Confirm Passord</label>
+                </div>
+                <span *ngIf="signupForm.errors?.['passwordmatcherror']">Password doesnt match</span>
+                <br>
+                <button [disabled]="signupForm.invalid" (click)="signup()" type="submit" class="btn btn-outline-light btn-lg px-5" type="submit">Sign Up</button>
+              </form>
 
 
 
