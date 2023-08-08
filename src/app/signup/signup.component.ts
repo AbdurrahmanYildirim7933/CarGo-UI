@@ -39,6 +39,4 @@ export class SignupComponent {
 
   }
 
-
-  protected readonly name = name;
 }

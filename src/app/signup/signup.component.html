@@ -40,7 +40,9 @@
                   <input [(ngModel)]="userDto.password" type="password" id="typePasswordX" class="form-control form-control-lg" formControlName="Password" />
                   <label class="form-label" for="typePasswordX">Password</label>
                 </div>
-
+                <br>
+                <span *ngIf="signupForm.errors?.['passwordmatcherror']">Password doesnt match</span>
+                <br>
                 <div class="form-outline form-white mb-4">
                   <input [(ngModel)]="userDto.cpassword" type="confirmPassword" id="typeConfirmPasswordX" class="form-control form-control-lg" formControlName="ConfirmPassword"/>
                   <label class="form-label" for="typeConfirmPasswordX">Confirm Passord</label>
