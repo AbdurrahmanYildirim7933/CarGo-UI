@@ -5,57 +5,54 @@
         <div class="card bg-dark text-white" style="border-radius: 1rem;">
           <div class="card-body p-5 text-center">
 
-            <div class="mb-md-5 mt-md-4 pb-5">
-              <form [formGroup]="signupForm" #SignupInfo (ngSubmit)="signUp()">
-                <h2 class="fw-bold mb-2 text-uppercase">Sign Up</h2>
 
-                <p class="text-white-50 mb-5">Please enter your information </p>
+            <div class="mb-md-5 mt-md-4 pb-5">
+              <h2 class="fw-bold mb-2 text-uppercase">Sign Up</h2>
+              <p class="text-white-50 mb-5">Please enter your information!</p>
+
+              <div class="form"
+                     >
+                <div class=" form-group">
 
                 <div class="form-outline form-white mb-4">
-                  <input [formControlName]="'name'" type="name" id="typeNameX" class="form-control form-control-lg" />
+                  <input [(ngModel)]="user.name"  type="name" id="typeNameX" class="form-control form-control-lg" />
                   <label class="form-label" for="typeNameX">Name</label>
-                  <span *ngIf="!signupForm.get('email')?.valid && signupForm.get('email')?.touched">
-                    Please provide a valid e mail
-                  </span>
+
                 </div>
 
                 <div class="form-outline form-white mb-4">
-                  <input  [formControlName]="'lastName'" type="lastName" id="typelastNameX" class="form-control form-control-lg" />
+                  <input  [(ngModel)]= "user.lastName" type="lastName" id="typelastNameX" class="form-control form-control-lg" />
                   <label class="form-label" for="typelastNameX">Last Name</label>
                 </div>
 
                 <div class="form-outline form-white mb-4">
-                  <input  [formControlName]="'identityNumber'"  type="identityNumber" id="typeIdentityNumberX" class="form-control form-control-lg" />
+                  <input  [(ngModel)]="user.identityNumber"  type="identityNumber" id="typeIdentityNumberX" class="form-control form-control-lg" />
                   <label class="form-label" for="typeIdentityNumberX">Identity Number</label>
                 </div>
 
                 <div class="form-outline form-white mb-4">
-                  <input  [formControlName]="'phone'"  type="phone" id="typePhoneX" class="form-control form-control-lg" />
+                  <input  [(ngModel)]="user.phone"  type="phone" id="typePhoneX" class="form-control form-control-lg" />
                   <label class="form-label" for="typePhoneX">Phone</label>
                 </div>
 
                 <div class="form-outline form-white mb-4">
-                  <input  [formControlName]="'email'"  type="email" id="typeEmailX" class="form-control form-control-lg" />
+                  <input  [(ngModel)]="user.email"  type="email" id="typeEmailX" class="form-control form-control-lg" />
                   <label class="form-label" for="typeEmailX">Email</label>
                 </div>
 
                 <div class="form-outline form-white mb-4">
-                  <input  [formControlName]="'password'" type="password" id="typePasswordX" class="form-control form-control-lg"   />
+                  <input  [(ngModel)]="user.password" type="password" id="typePasswordX" class="form-control form-control-lg"   />
                   <label class="form-label" for="typePasswordX">Password</label>
                 </div>
                 <br>
-                <span *ngIf="signupForm.errors?.['passwordmatcherror']">Password doesnt match</span>
                 <br>
                 <div class="form-outline form-white mb-4">
-                  <input  [formControlName]="'confirmPassword'" type="confirmPassword" id="typeConfirmPasswordX" class="form-control form-control-lg"  />
+                  <input [(ngModel)]="cpassword"
+                          id="typeConfirmPasswordX" class="form-control form-control-lg"  />
                   <label class="form-label" for="typeConfirmPasswordX">Confirm Passord</label>
                 </div>
-                <span *ngIf="signupForm.errors?.['passwordmatcherror']">Password doesnt match</span>
                 <br>
-                <button [disabled]="signupForm.invalid" type="submit" class="btn btn-outline-light btn-lg px-5" type="submit">Sign Up</button>
-              </form>
-
-
+                <button (click)="signUp()"   class="btn btn-outline-light btn-lg px-5">Sign Up</button>
 
             </div>
 
@@ -66,6 +63,8 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
     </div>
   </div>
 </section>

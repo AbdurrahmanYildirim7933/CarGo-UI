@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {UserSign} from "./UserSign";
+import {UserDTO} from "../login/UserDTO";
 
 @Injectable({
   providedIn : "root"
@@ -14,7 +14,7 @@ export class SignupService{
   }
 
 
-  registerUser(userDto : UserSign):Observable<Object>{
+  registerUser(userDto : UserDTO):Observable<Object>{
 
 console.log(userDto);
 return this.httpClient.post(`${this.apiUrl}/api/v1/user/create-user` ,userDto);

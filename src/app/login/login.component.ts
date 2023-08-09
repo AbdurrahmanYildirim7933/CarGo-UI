@@ -18,7 +18,7 @@ apiUrl="http://localhost:8080";
 constructor(private http: HttpClient,private cookie:CookieUtils, private router:Router) {
 }
   login(): void{
-    const user: UserDTO = new UserDTO(this.email, this.password);
+    const user: UserDTO = new UserDTO();
 
     this.http.post<any>(`${this.apiUrl}/api/v1/auth/login`, user).subscribe(
       (response) => {

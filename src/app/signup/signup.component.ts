@@ -1,59 +1,52 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
-import {UserSign} from "./UserSign";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {matchpassword} from "./matchpassword.validator";
 import {SignupService} from "./signup.service";
 import {UserDTO} from "../login/UserDTO";
-import {HttpClient} from "@angular/common/http";
-import {CookieUtils} from "../login/cookieUtils";
+import {ToastrService} from "ngx-toastr";
+
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
-export class SignupComponent {
+export class SignupComponent implements OnInit{
   data:any;
-  message:any;
-  status:any;
+  user:UserDTO = new UserDTO();
+  cpassword:string="";
+
+
+
 
   ngOnInit(){
-    this.signupForm = new FormGroup({
-      name : new FormControl('' , Validators.required),
-      lastName : new FormControl('' , Validators.required),
-      email : new FormControl('' , Validators.required),
-      phone : new FormControl('' , Validators.required),
-      identityNumber : new FormControl('' , Validators.required),
-      password : new FormControl('' , Validators.required),
-      confirmPassword : new FormControl('' , Validators.required),
 
-    },{
-      validators:matchpassword
-    });
   }
 
   signupForm: FormGroup;
-  constructor(private signupService: SignupService, private router:Router) {
+  constructor(private signupService: SignupService, private router:Router,private toastrService:ToastrService) {
 
   }
 
-  // @ts-ignore
-  user : UserSign = new UserSign();
+
 
   signUp(){
-    this.user.name = this.signupForm.get('name')?.value;
-    this.user.lastName = this.signupForm.get('lastName')?.value;
-    this.user.email = this.signupForm.get('email')?.value;
-    this.user.phone = this.signupForm.get('phone')?.value;
-    this.user.password = this.signupForm.get('password')?.value;
-    this.user.identityNumber = this.signupForm.get('identityNumber')?.value;
-    console.log(this.user);
-    this.signupService.registerUser(this.user).subscribe(res =>{
-        alert("User is registered succesfully")
+    if (this.user.validate() != ''){
+      this.toastrService.error("Hata",this.user.validate())
+    }else {
+      this.signupService.registerUser(this.user).subscribe(
+        res => {
+          console.log("Kullanıcı başarıyla kaydedildi.");
+          this.router.navigate(['/main-page']);
+        },
+        error => {
+          console.log("Üzgünüz, kullanıcı kaydedilemedi.");
+        }
+      );
+
     }
-      ,
-      error => alert("Sorry user not registered"));
+            }
+
 
 
  /* constructor(private http: HttpClient,private cookie:CookieUtils, private router:Router) {}
@@ -64,7 +57,6 @@ export class SignupComponent {
 
     //this.router.navigate(['/main-page']);
 
-  }
-
-
+  protected readonly onsubmit = onsubmit;
 }
+
