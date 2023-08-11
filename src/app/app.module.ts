@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import {FormsModule} from "@angular/forms";
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {HttpClientModule} from "@angular/common/http";
 import { SignupComponent } from './signup/signup.component';
 import {MainPageComponent} from "./main-page/main-page.component";
 import {provideToastr, ToastrModule} from "ngx-toastr";
@@ -22,6 +22,7 @@ import { FooterComponent } from './footer/footer.component';
     LoginComponent,
     SignupComponent,
     MainPageComponent,
+    ProfileComponent,
     GarageComponent,
     HeaderComponent,
     ProfileComponent,
@@ -36,13 +37,7 @@ import { FooterComponent } from './footer/footer.component';
   ],
 
   providers: [  provideAnimations(), // required animations providers
-    provideToastr(),
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true,
-    },
-  ],
+    provideToastr(), ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

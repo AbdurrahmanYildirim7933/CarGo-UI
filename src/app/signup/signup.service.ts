@@ -21,4 +21,10 @@ return this.httpClient.post(`${this.apiUrl}/api/v1/user/create-user` ,userDto);
 
   }
 
+  getCode(userDto:UserDTO): Observable<any> {
+
+    return this.httpClient.get(`${this.apiUrl}/api/v1/email/verify-code?email${userDto.email}`);
+
+  }
+
 }

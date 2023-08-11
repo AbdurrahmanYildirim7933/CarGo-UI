@@ -15,6 +15,7 @@ export class SignupComponent implements OnInit{
   data:any;
   user:UserDTO = new UserDTO();
   cpassword:string="";
+  code:string=""
 
 
 
@@ -24,20 +25,23 @@ export class SignupComponent implements OnInit{
   }
 
   signupForm: FormGroup;
-  constructor(private signupService: SignupService, private router:Router,private toastrService:ToastrService) {
+  constructor(private signupService: SignupService,
+              private router:Router,
+              private toastrService:ToastrService) {
 
   }
 
 
 
   signUp(){
+
     if (this.user.validate() != ''){
       this.toastrService.error("Hata",this.user.validate())
     }else {
       this.signupService.registerUser(this.user).subscribe(
         res => {
           console.log("Kullanıcı başarıyla kaydedildi.");
-          this.router.navigate(['/main-page']);
+          this.router.navigate(['/verify']);
         },
         error => {
           console.log("Üzgünüz, kullanıcı kaydedilemedi.");
@@ -45,8 +49,21 @@ export class SignupComponent implements OnInit{
       );
 
     }
+
   }
 
+  getCode(){
+    this.signupService.getCode(this.user).subscribe(
+      (response: any) => {
+        this.code = response["code"];
+        console.log(response);
+      },
+      (error: any) => {
+        console.error('Error retrieving profile data');
+
+      }
+    );
+  }
 
 
   /* constructor(private http: HttpClient,private cookie:CookieUtils, private router:Router) {}

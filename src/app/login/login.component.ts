@@ -2,11 +2,10 @@
 import { Component } from '@angular/core';
 import {UserDTO} from "./UserDTO";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {CookieUtils} from "./cookieUtils";
 import {Router} from "@angular/router";
 import {Observable} from "rxjs";
 import {MyCookieService} from "./cookieService";
-import {CookieService} from "ngx-cookie-service";
+import {CookieService} from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login',
@@ -19,9 +18,10 @@ password: string;
 apiUrl="http://localhost:8080";
   public token: string ='';
   user: UserDTO = new UserDTO();
-constructor(private http: HttpClient,private cookie:CookieUtils, private router:Router,private cookieService:CookieService) {
+constructor(private http: HttpClient, private router:Router,private cookieService:CookieService) {
 }
   login(): void{
+    const user: UserDTO = new UserDTO();
 
 
     this.http.post<any>(`${this.apiUrl}/api/v1/auth/login`, this.user).subscribe(

@@ -6,7 +6,8 @@ export class UserDTO{
   lastName:string;
   phone:string;
   identityNumber:string;
-
+  code:string;
+  cpassword: string
 
   validate():string{
     console.log("x")

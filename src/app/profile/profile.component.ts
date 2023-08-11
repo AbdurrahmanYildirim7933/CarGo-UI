@@ -3,7 +3,6 @@ import {LoginComponent} from "../login/login.component";
 import {ProfileDetails} from "./profiledetails";
 import {Observable} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {CookieUtils} from "../login/cookieUtils";
 import {Router} from "@angular/router";
 import {CookieService} from "ngx-cookie-service";
 import {ProfileService} from "./profile.service";
@@ -18,7 +17,7 @@ export class ProfileComponent implements OnInit{
   myDetails: ProfileDetails = new ProfileDetails();
 
 
-  constructor(private http: HttpClient,private cookie:CookieUtils, private router:Router,protected cookieService:CookieService,private profileService:ProfileService) {
+  constructor(private http: HttpClient,private router:Router,protected cookieService:CookieService,private profileService:ProfileService) {
 
   }
     ngOnInit(): void {
