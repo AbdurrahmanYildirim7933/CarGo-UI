@@ -30,6 +30,7 @@ export class ProfileComponent implements OnInit{
       this.profileService.profile().subscribe(
         (response: any) => {
           this.myDetails.name = response["name"];
+          this.myDetails.lastName= response["lastName"];
           console.log(response["name"]);
           console.log('User Data:', this.myDetails);
         },

@@ -26,7 +26,7 @@ constructor(private http: HttpClient,private cookie:CookieUtils, private router:
 
     this.http.post<any>(`${this.apiUrl}/api/v1/auth/login`, this.user).subscribe(
       (response) => {
-        this.cookieService.set("MyCookie",response["token"],1,);
+        this.cookieService.set("MyCookie",response["token"],1);
         console.log('Kullanıcı girişi başarılı:', response);
         this.router.navigate(['/main-page']);
 

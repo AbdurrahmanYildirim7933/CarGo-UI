@@ -14,6 +14,7 @@ import { GarageComponent } from './garage/garage.component';
 import { HeaderComponent } from './header/header.component';
 import { ProfileComponent } from './profile/profile.component';
 import {TokenInterceptor} from "./api-interceptor.service";
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {TokenInterceptor} from "./api-interceptor.service";
     MainPageComponent,
     GarageComponent,
     HeaderComponent,
-    ProfileComponent
+    ProfileComponent,
+    FooterComponent
     ],
   imports: [
     BrowserModule,
