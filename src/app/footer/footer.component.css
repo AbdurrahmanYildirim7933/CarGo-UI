@@ -1,0 +1,23 @@
+
+div {
+  background-color: #E8CCC7;
+  color: #45496A;
+  padding: 20px 0;
+  text-align: center;
+
+}
+
+#footer-info-container {
+  max-width: 2000px;
+  margin: 0 auto;
+}
+
+.row2{
+  background-color: #A07B71;
+  color: #FFFFFF;
+}
+#copyright{
+  background-color: #A07B71;
+  color: #FFFFFF;
+}
+
