@@ -1,9 +1,12 @@
 
 import { Component } from '@angular/core';
 import {UserDTO} from "./UserDTO";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {CookieUtils} from "./cookieUtils";
 import {Router} from "@angular/router";
+import {Observable} from "rxjs";
+import {MyCookieService} from "./cookieService";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-login',
@@ -14,16 +17,19 @@ export class LoginComponent {
 email: string;
 password: string;
 apiUrl="http://localhost:8080";
-
-constructor(private http: HttpClient,private cookie:CookieUtils, private router:Router) {
+  public token: string ='';
+  user: UserDTO = new UserDTO();
+constructor(private http: HttpClient,private cookie:CookieUtils, private router:Router,private cookieService:CookieService) {
 }
   login(): void{
-    const user: UserDTO = new UserDTO();
 
-    this.http.post<any>(`${this.apiUrl}/api/v1/auth/login`, user).subscribe(
+
+    this.http.post<any>(`${this.apiUrl}/api/v1/auth/login`, this.user).subscribe(
       (response) => {
-        this.cookie.setCookie("CARGO_TOKEN",response["token"],1,"/login")
+        this.cookieService.set("MyCookie",response["token"],1,);
         console.log('Kullanıcı girişi başarılı:', response);
+        this.router.navigate(['/main-page']);
+
       },
       (error) => {
         // Backend'den gelen hata durumlarını burada işleyebilirsiniz
@@ -32,7 +38,7 @@ constructor(private http: HttpClient,private cookie:CookieUtils, private router:
 
     );
 
-    this.router.navigate(['/main-page']);
+
 
 
     /*if (!this.loginUser.email || this.loginUser.email == ''){
@@ -46,5 +52,7 @@ constructor(private http: HttpClient,private cookie:CookieUtils, private router:
 
     this.router.navigate(['/signup']);
   }
+
+
 
 }

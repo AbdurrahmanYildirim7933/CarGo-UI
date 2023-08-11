@@ -5,18 +5,25 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import {FormsModule} from "@angular/forms";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { SignupComponent } from './signup/signup.component';
 import {MainPageComponent} from "./main-page/main-page.component";
 import {provideToastr, ToastrModule} from "ngx-toastr";
 import {provideAnimations} from "@angular/platform-browser/animations";
+import { GarageComponent } from './garage/garage.component';
+import { HeaderComponent } from './header/header.component';
+import { ProfileComponent } from './profile/profile.component';
+import {TokenInterceptor} from "./api-interceptor.service";
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SignupComponent,
-    MainPageComponent
+    MainPageComponent,
+    GarageComponent,
+    HeaderComponent,
+    ProfileComponent
     ],
   imports: [
     BrowserModule,
@@ -25,9 +32,15 @@ import {provideAnimations} from "@angular/platform-browser/animations";
     HttpClientModule,
     ToastrModule.forRoot(),
   ],
-  
+
   providers: [  provideAnimations(), // required animations providers
-    provideToastr(), ],
+    provideToastr(),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

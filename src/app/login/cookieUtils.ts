@@ -13,4 +13,6 @@ export class CookieUtils {
     let cpath:string = path ? `; path=${path}` : '';
     document.cookie = `${name}=${value}; ${expires}${cpath}`;
   }
+
+
 }

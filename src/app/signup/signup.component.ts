@@ -45,18 +45,17 @@ export class SignupComponent implements OnInit{
       );
 
     }
-            }
+  }
 
 
 
- /* constructor(private http: HttpClient,private cookie:CookieUtils, private router:Router) {}
+  /* constructor(private http: HttpClient,private cookie:CookieUtils, private router:Router) {}
 
-  signup(): void {
-    const user:UserRegDTO= new UserRegDTO();*/
+   signup(): void {
+     const user:UserRegDTO= new UserRegDTO();*/
 
 
-    //this.router.navigate(['/main-page']);
+  //this.router.navigate(['/main-page']);
 
   protected readonly onsubmit = onsubmit;
 }
-

@@ -11,60 +11,61 @@
               <p class="text-white-50 mb-5">Please enter your information!</p>
 
               <div class="form"
-                     >
+              >
                 <div class=" form-group">
 
-                <div class="form-outline form-white mb-4">
-                  <input [(ngModel)]="user.name"  type="name" id="typeNameX" class="form-control form-control-lg" />
-                  <label class="form-label" for="typeNameX">Name</label>
+                  <div class="form-outline form-white mb-4">
+                    <input [(ngModel)]="user.name"  type="name" id="typeNameX" class="form-control form-control-lg" />
+                    <label class="form-label" for="typeNameX">Name</label>
+
+                  </div>
+
+                  <div class="form-outline form-white mb-4">
+                    <input  [(ngModel)]= "user.lastName" type="lastName" id="typelastNameX" class="form-control form-control-lg" />
+                    <label class="form-label" for="typelastNameX">Last Name</label>
+                  </div>
+
+                  <div class="form-outline form-white mb-4">
+                    <input  [(ngModel)]="user.identityNumber"  type="identityNumber" id="typeIdentityNumberX" class="form-control form-control-lg" />
+                    <label class="form-label" for="typeIdentityNumberX">Identity Number</label>
+                  </div>
+
+                  <div class="form-outline form-white mb-4">
+                    <input  [(ngModel)]="user.phone"  type="phone" id="typePhoneX" class="form-control form-control-lg" />
+                    <label class="form-label" for="typePhoneX">Phone</label>
+                  </div>
+
+                  <div class="form-outline form-white mb-4">
+                    <input  [(ngModel)]="user.email"  type="email" id="typeEmailX" class="form-control form-control-lg" />
+                    <label class="form-label" for="typeEmailX">Email</label>
+                  </div>
+
+                  <div class="form-outline form-white mb-4">
+                    <input  [(ngModel)]="user.password" type="password" id="typePasswordX" class="form-control form-control-lg"   />
+                    <label class="form-label" for="typePasswordX">Password</label>
+                  </div>
+                  <br>
+                  <br>
+                  <div class="form-outline form-white mb-4">
+                    <input [(ngModel)]="cpassword"
+                           id="typeConfirmPasswordX" class="form-control form-control-lg"  />
+                    <label class="form-label" for="typeConfirmPasswordX">Confirm Passord</label>
+                  </div>
+                  <br>
+                  <button (click)="signUp()"   class="btn btn-outline-light btn-lg px-5">Sign Up</button>
 
                 </div>
 
-                <div class="form-outline form-white mb-4">
-                  <input  [(ngModel)]= "user.lastName" type="lastName" id="typelastNameX" class="form-control form-control-lg" />
-                  <label class="form-label" for="typelastNameX">Last Name</label>
+                <div>
+
                 </div>
 
-                <div class="form-outline form-white mb-4">
-                  <input  [(ngModel)]="user.identityNumber"  type="identityNumber" id="typeIdentityNumberX" class="form-control form-control-lg" />
-                  <label class="form-label" for="typeIdentityNumberX">Identity Number</label>
-                </div>
-
-                <div class="form-outline form-white mb-4">
-                  <input  [(ngModel)]="user.phone"  type="phone" id="typePhoneX" class="form-control form-control-lg" />
-                  <label class="form-label" for="typePhoneX">Phone</label>
-                </div>
-
-                <div class="form-outline form-white mb-4">
-                  <input  [(ngModel)]="user.email"  type="email" id="typeEmailX" class="form-control form-control-lg" />
-                  <label class="form-label" for="typeEmailX">Email</label>
-                </div>
-
-                <div class="form-outline form-white mb-4">
-                  <input  [(ngModel)]="user.password" type="password" id="typePasswordX" class="form-control form-control-lg"   />
-                  <label class="form-label" for="typePasswordX">Password</label>
-                </div>
-                <br>
-                <br>
-                <div class="form-outline form-white mb-4">
-                  <input [(ngModel)]="cpassword"
-                          id="typeConfirmPasswordX" class="form-control form-control-lg"  />
-                  <label class="form-label" for="typeConfirmPasswordX">Confirm Passord</label>
-                </div>
-                <br>
-                <button (click)="signUp()"   class="btn btn-outline-light btn-lg px-5">Sign Up</button>
-
+              </div>
             </div>
-
-            <div>
-
-            </div>
-
           </div>
         </div>
       </div>
     </div>
   </div>
-    </div>
-  </div>
 </section>
+

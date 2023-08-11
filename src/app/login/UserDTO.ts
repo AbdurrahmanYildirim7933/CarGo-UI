@@ -1,4 +1,5 @@
 export class UserDTO{
+  id:bigint;
   name:string;
   email:string;
   password:string;
@@ -23,9 +24,16 @@ export class UserDTO{
       if (!passwordRegex.test(this.password)) {
         return "Password must contain at least 8 characters, including uppercase, lowercase, digit, and special character.";
       }
+      if(this.identityNumber.length != 11){
+        return "Identitiy number must be 11 numbers"
+      }
 
     }
     return "";
+  }
+
+  getUserId(){
+    return this.id;
   }
 
 }
