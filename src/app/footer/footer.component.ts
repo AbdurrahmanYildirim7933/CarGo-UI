@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {CookieUtils} from "../login/cookieUtils";
 import {Router} from "@angular/router";
 import {CookieService} from "ngx-cookie-service";
 import {ProfileService} from "../profile/profile.service";
@@ -14,12 +13,12 @@ import {FooterService} from "./footer.service";
 export class FooterComponent implements OnInit{
 
   protected ip:string=" ";
-  constructor(private http: HttpClient, private cookie: CookieUtils, private router: Router, protected cookieService: CookieService, private footerService: FooterService) {
+  constructor(private http: HttpClient, private router: Router, protected cookieService: CookieService, private footerService: FooterService) {
 
   }
 
   ngOnInit(): void {
-    this.getIp();
+   // this.getIp();
   }
 
 

@@ -26,5 +26,9 @@ return this.httpClient.post(`${this.apiUrl}/api/v1/user/create-user` ,userDto);
     return this.httpClient.get(`${this.apiUrl}/api/v1/email/verify-code?email${userDto.email}`);
 
   }
+  sendVerifyCode(user:UserDTO){
+    return this.httpClient
+      .post(`${this.apiUrl}/api/v1/user/user-verify-by-code`,user)
+  }
 
 }

@@ -26,7 +26,7 @@ import { FooterComponent } from './footer/footer.component';
     GarageComponent,
     HeaderComponent,
     ProfileComponent,
-    FooterComponent
+    FooterComponent,
     ],
   imports: [
     BrowserModule,

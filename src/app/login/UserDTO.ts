@@ -6,11 +6,19 @@ export class UserDTO{
   lastName:string;
   phone:string;
   identityNumber:string;
-  code:string;
-  cpassword: string
+  cpassword: string;
+  verifyCode : string;
+
+  mapper(user:any){
+    this.id = user.id;
+    this.name = user.name;
+    this.email = user.email;
+    this.lastName=user.lastName;
+    this.phone = user.phone;
+  }
 
   validate():string{
-    console.log("x")
+
     console.log(this)
     if(!this.name || this.name == ''){
       return "name cannot be empty";

@@ -4,6 +4,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {SignupService} from "./signup.service";
 import {UserDTO} from "../login/UserDTO";
 import {ToastrService} from "ngx-toastr";
+import {positionElements} from "ngx-bootstrap/positioning";
 
 
 @Component({
@@ -31,17 +32,29 @@ export class SignupComponent implements OnInit{
 
   }
 
+  verifyCodeEntry:boolean;
 
-
+  sendVerifyCode(){
+    this.signupService.sendVerifyCode(this.user).subscribe(res=>{
+      console.log("Code başarılı");
+      console.log(res);
+      this.router.navigate(["/main-page"]);
+    })
+  }
   signUp(){
 
     if (this.user.validate() != ''){
       this.toastrService.error("Hata",this.user.validate())
+
     }else {
       this.signupService.registerUser(this.user).subscribe(
         res => {
           console.log("Kullanıcı başarıyla kaydedildi.");
-          this.router.navigate(['/verify']);
+          this.verifyCodeEntry = true;
+          this.user = new UserDTO();
+
+          this.user.mapper(res);
+
         },
         error => {
           console.log("Üzgünüz, kullanıcı kaydedilemedi.");
