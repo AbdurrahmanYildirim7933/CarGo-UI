@@ -18,7 +18,7 @@ export class FooterComponent implements OnInit{
   }
 
   ngOnInit(): void {
-   // this.getIp();
+   this.getIp();
   }
 
 

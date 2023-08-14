@@ -14,7 +14,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //this.getProfileData()
+    this.getProfileData()
   }
 
 
@@ -22,6 +22,7 @@ export class HeaderComponent implements OnInit {
     this.profileService.profile().subscribe(
       (response: any) => {
         this.myDetails.name = response["name"];
+        this.myDetails.lastName=response["lastname"];
         console.log(response["name"]);
         console.log('User Data:', this.myDetails);
       },
