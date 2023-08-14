@@ -47,16 +47,16 @@
                   <br>
                   <br>
                   <div class="form-outline form-white mb-4">
-                    <input [(ngModel)]="user.cpassword"  id="typeConfirmPasswordX" class="form-control form-control-lg"  />
+                    <input [(ngModel)]="cpassword"
+                           id="typeConfirmPasswordX" class="form-control form-control-lg"  />
                     <label class="form-label" for="typeConfirmPasswordX">Confirm Passord</label>
                   </div>
                   <br>
                   <button *ngIf="!verifyCodeEntry" (click)="signUp()"   class="btn btn-outline-light btn-lg px-5">Sign Up</button>
                   <!-- Button trigger modal -->
                   <button *ngIf="verifyCodeEntry"  type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                  Doğrulama kodu giriniz
+                    Doğrulama kodu giriniz
                   </button>
-
 
                 </div>
 
@@ -93,6 +93,5 @@
     </div>
   </div>
 </div>
-
 
 

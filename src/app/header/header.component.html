@@ -1,16 +1,16 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Home</a>
+    <a *ngIf="userIsAuthenticated" class="navbar-brand" routerLink="/main-page" href="#">Home</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
 
-        <li class="nav-item"><a class="nav-link" routerLink="/profile">{{myDetails.name}}</a></li>
-        <li class="nav-item"><a class="nav-link" routerLink="/login">Login</a></li>
-        <li class="nav-item"><a class="nav-link" routerLink="/signup">Signup</a></li>
-        <li  class="nav-item"><a class="nav-link" (click)="logout()">Logout</a></li>
+        <li *ngIf="userIsAuthenticated" class="nav-item"><a class="nav-link" routerLink="/profile">{{myDetails.name}}</a></li>
+        <li  *ngIf="!userIsAuthenticated" class="nav-item"><a class="nav-link" routerLink="/login">Login</a></li>
+        <li  *ngIf="!userIsAuthenticated" class="nav-item"><a class="nav-link" routerLink="/signup">Signup</a></li>
+        <li  *ngIf="userIsAuthenticated" class="nav-item"><a class="nav-link" (click)="logout()">Logout</a></li>
       </ul>
     </div>
   </div>

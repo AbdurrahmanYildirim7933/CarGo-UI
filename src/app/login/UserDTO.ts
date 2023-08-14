@@ -6,7 +6,6 @@ export class UserDTO{
   lastName:string;
   phone:string;
   identityNumber:string;
-  cpassword: string;
   verifyCode : string;
 
   mapper(user:any){
@@ -16,6 +15,8 @@ export class UserDTO{
     this.lastName=user.lastName;
     this.phone = user.phone;
   }
+
+
 
   validate():string{
 

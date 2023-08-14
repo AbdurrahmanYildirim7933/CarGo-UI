@@ -1,51 +1,33 @@
 
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserDTO} from "./UserDTO";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {Observable} from "rxjs";
 import {MyCookieService} from "./cookieService";
-import {CookieService} from 'ngx-cookie-service';
+import {CookieService} from "ngx-cookie-service";
+import {LoginService} from "./login.service";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
 email: string;
 password: string;
 apiUrl="http://localhost:8080";
   public token: string ='';
   user: UserDTO = new UserDTO();
-constructor(private http: HttpClient, private router:Router,private cookieService:CookieService) {
+constructor(private http: HttpClient, private router:Router,private cookieService:CookieService,private loginService: LoginService) {
 }
+
+  ngOnInit() {
+
+  }
   login(): void{
-    const user: UserDTO = new UserDTO();
 
-
-    this.http.post<any>(`${this.apiUrl}/api/v1/auth/login`, this.user).subscribe(
-      (response) => {
-        this.cookieService.set("MyCookie",response["token"],1);
-        console.log('Kullanıcı girişi başarılı:', response);
-        this.router.navigate(['/main-page']);
-
-      },
-      (error) => {
-        // Backend'den gelen hata durumlarını burada işleyebilirsiniz
-        console.error('Kullanıcı girişi başarısız:', error);
-      }
-
-    );
-
-
-
-
-    /*if (!this.loginUser.email || this.loginUser.email == ''){
-      console.log("hataaaaaaa")
-      return;
-    }
-    console.log(this.loginUser.email) */
+  this.loginService.login(this.user);
 
   }
   goToSignup(): void{

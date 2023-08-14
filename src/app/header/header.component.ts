@@ -1,29 +1,45 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ProfileService} from "../profile/profile.service";
 import {ProfileDetails} from "../profile/profiledetails";
-import {Router} from "@angular/router";
+import {LoginService} from "../login/login.service";
+import {Route, Router} from "@angular/router";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit,OnDestroy{
   myDetails: ProfileDetails =new ProfileDetails();
+  isAuthenticated:boolean = false;
+  private authListenerSubs: Subscription;
+  public userIsAuthenticated = true;
 
-  constructor(private profileService: ProfileService,private router:Router) {
+
+constructor(private profileService: ProfileService,private loginService:LoginService,private router: Router) {
+
   }
+
 
   ngOnInit(): void {
-    this.getProfileData()
+    this.getProfileData();
+    this.authListenerSubs = this.loginService.getAuthStatusListener().subscribe(isAuthenticated=>{
+      this.userIsAuthenticated = isAuthenticated;
+    });
   }
-  isLogin:boolean;
+
+  ngOnDestroy(){
+
+
+    this.authListenerSubs.unsubscribe();
+  }
+
 
   getProfileData(): void {
     this.profileService.profile().subscribe(
       (response: any) => {
         this.myDetails.name = response["name"];
-        this.myDetails.lastName=response["lastname"];
         console.log(response["name"]);
         console.log('User Data:', this.myDetails);
       },
@@ -36,6 +52,9 @@ export class HeaderComponent implements OnInit {
   }
   logout()
   {
-    this.router.navigate(['/login']);
+    this.loginService.logout();
+
   }
+
+
 }
