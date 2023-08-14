@@ -9,7 +9,7 @@ import {HttpClientModule} from "@angular/common/http";
 import { SignupComponent } from './signup/signup.component';
 import {MainPageComponent} from "./main-page/main-page.component";
 import {provideToastr, ToastrModule} from "ngx-toastr";
-import {provideAnimations} from "@angular/platform-browser/animations";
+import {BrowserAnimationsModule, provideAnimations} from "@angular/platform-browser/animations";
 import { GarageComponent } from './garage/garage.component';
 import { HeaderComponent } from './header/header.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -27,12 +27,13 @@ import { FooterComponent } from './footer/footer.component';
     HeaderComponent,
     ProfileComponent,
     FooterComponent,
-    ],
+     ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
     ToastrModule.forRoot(),
   ],
 

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ProfileService} from "../profile/profile.service";
 import {ProfileDetails} from "../profile/profiledetails";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'header',
@@ -10,13 +11,13 @@ import {ProfileDetails} from "../profile/profiledetails";
 export class HeaderComponent implements OnInit {
   myDetails: ProfileDetails =new ProfileDetails();
 
-  constructor(private profileService: ProfileService,) {
+  constructor(private profileService: ProfileService,private router:Router) {
   }
 
   ngOnInit(): void {
     //this.getProfileData()
   }
-
+  isLogin:boolean;
 
   getProfileData(): void {
     this.profileService.profile().subscribe(
@@ -34,5 +35,6 @@ export class HeaderComponent implements OnInit {
   }
   logout()
   {
+    this.router.navigate(['/login']);
   }
 }
