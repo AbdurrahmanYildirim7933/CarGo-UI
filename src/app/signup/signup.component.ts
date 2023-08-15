@@ -3,8 +3,8 @@ import {Router} from "@angular/router";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {SignupService} from "./signup.service";
 import {UserDTO} from "../login/UserDTO";
-import {ToastrService} from "ngx-toastr";
 import {positionElements} from "ngx-bootstrap/positioning";
+import {ToastrService} from "ngx-toastr";
 
 
 @Component({
@@ -22,16 +22,17 @@ export class SignupComponent implements OnInit{
 
 
   ngOnInit(){
-
+    //this.toastrService.error("hata");
   }
 
   signupForm: FormGroup;
   constructor(private signupService: SignupService,
               private router:Router,
-              private toastrService:ToastrService) {
+              private toastrService:ToastrService
+              ) {
 
   }
-
+//private toastrService:ToastrService
   verifyCodeEntry:boolean;
 
   sendVerifyCode(){

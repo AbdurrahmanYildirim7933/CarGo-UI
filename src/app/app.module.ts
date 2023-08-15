@@ -8,13 +8,13 @@ import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import { SignupComponent } from './signup/signup.component';
 import {MainPageComponent} from "./main-page/main-page.component";
-import {provideToastr, ToastrModule} from "ngx-toastr";
 import {BrowserAnimationsModule, provideAnimations} from "@angular/platform-browser/animations";
 import { GarageComponent } from './garage/garage.component';
 import { HeaderComponent } from './header/header.component';
 import { ProfileComponent } from './profile/profile.component';
 import {TokenInterceptor} from "./api-interceptor.service";
 import { FooterComponent } from './footer/footer.component';
+import {ToastrModule} from "ngx-toastr";
 
 @NgModule({
   declarations: [
@@ -34,11 +34,10 @@ import { FooterComponent } from './footer/footer.component';
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot()
   ],
 
-  providers: [  provideAnimations(), // required animations providers
-    provideToastr(), ],
+  providers: [  provideAnimations()],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
