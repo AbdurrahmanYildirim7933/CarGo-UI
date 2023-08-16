@@ -40,7 +40,6 @@ constructor(private profileService: ProfileService,private loginService:LoginSer
     this.profileService.profile().subscribe(
       (response: any) => {
         this.myDetails.name = response["name"];
-        console.log(response["name"]);
         console.log('User Data:', this.myDetails);
       },
       (error: any) => {

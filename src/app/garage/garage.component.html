@@ -1,0 +1,47 @@
+<body>
+<mat-toolbar color="primary"> List Of My Garages
+</mat-toolbar>
+<div class="container responsive-grid">
+
+  <mat-card *ngFor="let garage of myGarage">
+    <mat-card-header>
+      <mat-card-title>{{ garage.name }} </mat-card-title>
+    </mat-card-header>
+    <br />
+    <img mat-card-image [src]="url" />
+    <mat-card-content>
+      <br />
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button class="gradient-custom" >Edit</button>
+      <span class="container-fluid"></span>
+      <button mat-button class="gradient-custom" (click)="deleteGarage(garage.id)">Delete</button>
+
+    </mat-card-actions>
+  </mat-card>
+  <button mat-button  type="button" class="btn btn-primary" data-bs-toggle="modal"
+          data-bs-target="#staticBackdrop">
+    Create Garage </button>
+</div>
+</body>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="staticBackdropLabel">Garaj ismi giriniz</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input class="form-control form-control-lg"  [(ngModel)]="createdGarage.name">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" (click)="createGarage()" class="btn btn-primary">Send</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

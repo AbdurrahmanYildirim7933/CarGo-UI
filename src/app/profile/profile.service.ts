@@ -21,7 +21,8 @@ export class ProfileService {
         return this.http.get(`${this.apiUrl}/api/v1/auth/me`,{ headers });
 
     }
-    private createHeaders(): HttpHeaders {
+
+    createHeaders(): HttpHeaders {
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
         });
@@ -30,4 +31,6 @@ export class ProfileService {
 
         return headers;
     }
+
+
 }

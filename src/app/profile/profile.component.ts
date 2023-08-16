@@ -28,6 +28,7 @@ export class ProfileComponent implements OnInit{
     getProfileData(): void {
       this.profileService.profile().subscribe(
         (response: any) => {
+          this.cookieService.set("MyId", response["id"], 1);
           this.myDetails.name = response["name"];
           this.myDetails.lastName= response["lastName"];
           console.log(response["name"]);
@@ -39,5 +40,6 @@ export class ProfileComponent implements OnInit{
         }
       );
   }
+
 
 }

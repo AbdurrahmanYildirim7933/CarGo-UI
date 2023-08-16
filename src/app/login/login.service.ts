@@ -44,7 +44,7 @@ export class LoginService {
     this.isLoggedin = false;
     this.authStatusListener.next(false);
     this.router.navigate(['/login']);
-
+    this.authStatusListener.next(false);
   }
 
 

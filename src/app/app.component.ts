@@ -1,6 +1,5 @@
 import { Component,ViewChild } from '@angular/core';
-import { ToastComponent ,ToastPositionModel } from "@syncfusion/ej2-angular-notifications";
-import { ButtonComponent } from "@syncfusion/ej2-angular-buttons";
+
 import { NotificationService } from './notification.service'
 @Component({
   selector: 'app-root',

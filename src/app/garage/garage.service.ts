@@ -1,9 +1,12 @@
 import {Injectable, Input} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {UserDTO} from "../login/UserDTO";
 import {Observable} from "rxjs";
 import {Car} from "./car";
 import {Garage} from "./garage";
+import {PreloadingFeature} from "@angular/router";
+import {ProfileService} from "../profile/profile.service";
+import {CookieService} from "ngx-cookie-service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,16 +15,25 @@ export class GarageService {
   apiUrl="http://localhost:8080";
 
   user: UserDTO;
-  user_garages:Garage[];
-  constructor(private httpClient: HttpClient) {
+
+  constructor(private httpClient: HttpClient,private profileService:ProfileService,private cookieService:CookieService) {
   }
 
-  getGarages(userId:bigint):Garage[]{
+  getGarages(userId: number):Observable<any[]>{
+    const headers = this.profileService.createHeaders();
+    return this.httpClient.get<Garage[]>(`${this.apiUrl}/api/v1/garage/users/${userId}/garages`,{headers});
 
-    console.log(this.user_garages);
-    // @ts-ignore
-    this.user_garages = this.httpClient.get(`${this.apiUrl}/api/v1/garage/users/${userId}/garages`);
-    return this.user_garages;
+  }
+
+  deleteGarage(id:number){
+      const headers = this.profileService.createHeaders();
+      return this.httpClient.delete(`${this.apiUrl}/api/v1/garage/delete-garage/${id}`,{headers});
+  }
+
+  createGarage (garage : Garage):Observable<Object>{
+    const headers = this.profileService.createHeaders();
+    console.log(garage);
+    return this.httpClient.post(`${this.apiUrl}/api/v1/garage/create-garage` ,garage ,{headers});
 
   }
 
