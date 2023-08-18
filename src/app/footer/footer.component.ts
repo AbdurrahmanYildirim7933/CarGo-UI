@@ -6,7 +6,7 @@ import {ProfileService} from "../profile/profile.service";
 import {FooterService} from "./footer.service";
 
 @Component({
-  selector: 'footer',
+  selector: 'app-footer',
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.css']
 })

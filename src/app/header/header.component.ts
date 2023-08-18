@@ -6,7 +6,7 @@ import {Route, Router} from "@angular/router";
 import {Subscription} from "rxjs";
 
 @Component({
-  selector: 'header',
+  selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
@@ -53,6 +53,9 @@ constructor(private profileService: ProfileService,private loginService:LoginSer
   {
     this.loginService.logout();
 
+  }
+  goToShop(){
+  this.router.navigate(["/shop"]);
   }
 
 

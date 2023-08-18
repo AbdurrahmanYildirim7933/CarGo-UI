@@ -16,12 +16,14 @@ export class GarageService {
 
   user: UserDTO;
 
-  constructor(private httpClient: HttpClient,private profileService:ProfileService,private cookieService:CookieService) {
+  constructor(private httpClient: HttpClient,private profileService:ProfileService,
+              private cookieService:CookieService) {
   }
 
   getGarages(userId: number):Observable<any[]>{
     const headers = this.profileService.createHeaders();
-    return this.httpClient.get<Garage[]>(`${this.apiUrl}/api/v1/garage/users/${userId}/garages`,{headers});
+    return this.httpClient.get<Garage[]>(`${this.apiUrl}/api/v1/garage/users/${userId}/garages`,
+      {headers});
 
   }
 

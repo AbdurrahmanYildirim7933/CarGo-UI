@@ -20,7 +20,7 @@ export class LoginService {
 
   login(user:UserDTO): void {
 
-
+debugger
     this.http.post<any>(`${this.apiUrl}/api/v1/auth/login`, user).subscribe(
       (response) => {
         this.cookieService.set("MyCookie", response["token"], 1);

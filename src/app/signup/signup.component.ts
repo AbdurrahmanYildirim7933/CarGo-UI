@@ -23,6 +23,7 @@ export class SignupComponent implements OnInit{
 
   ngOnInit(){
     //this.toastrService.error("hata");
+
   }
 
   signupForm: FormGroup;
@@ -46,7 +47,7 @@ export class SignupComponent implements OnInit{
 
     if (this.user.validate() != ''){
       this.toastrService.error("Hata",this.user.validate())
-
+ debugger
     }else {
       this.signupService.registerUser(this.user).subscribe(
         res => {

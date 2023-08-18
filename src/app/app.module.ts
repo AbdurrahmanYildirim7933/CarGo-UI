@@ -15,6 +15,7 @@ import { HeaderComponent } from './header/header.component';
 import { ProfileComponent } from './profile/profile.component';
 import {TokenInterceptor} from "./api-interceptor.service";
 import { FooterComponent } from './footer/footer.component';
+import { ShopComponent } from './shop/shop.component';
 import {MatTableModule} from "@angular/material/table";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatInputModule} from "@angular/material/input";
@@ -34,6 +35,8 @@ import {MatToolbarModule} from "@angular/material/toolbar";
     HeaderComponent,
     ProfileComponent,
     FooterComponent,
+    ShopComponent,
+    AppComponent,
      ],
   imports: [
     BrowserModule,
@@ -49,6 +52,9 @@ import {MatToolbarModule} from "@angular/material/toolbar";
     MatIconModule,
     MatListModule,
     MatToolbarModule,
+    BrowserModule,
+    FormsModule,
+
   ],
 
   providers: [  provideAnimations(), // required animations providers

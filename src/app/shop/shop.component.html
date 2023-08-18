@@ -1,0 +1,34 @@
+
+<table class="table table-borderless table-dark">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col"> name   <i (click)="sortByName()" class="fas fa-sort"></i></th>
+    <th scope="col">Phone</th>
+    <th scope="col">Address</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr  *ngFor="let shop of shops;let index=index">
+    <th scope="row">{{index+1}}</th>
+    <td>{{shop.name}} </td>
+    <td>{{shop.phone}}</td>
+    <td>{{shop.address}}</td>
+  </tr>
+
+  </tbody>
+</table>
+
+<nav aria-label="...">
+  <ul class="pagination">
+    <li class="page-item">
+      <a (click)="setPage('negative')"  class="page-link">Previous</a>
+    </li>
+ <input [(ngModel)]="page">
+
+
+    <li class="page-item">
+      <a (click)="setPage('positive')" class="page-link">Next</a>
+    </li>
+  </ul>
+</nav>

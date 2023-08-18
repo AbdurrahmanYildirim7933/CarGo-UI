@@ -1,6 +1,7 @@
 import { Component,ViewChild } from '@angular/core';
 
 import { NotificationService } from './notification.service'
+import {VERSION} from "@angular/cdk";
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,6 +10,11 @@ import { NotificationService } from './notification.service'
 export class AppComponent {
 //  title = 'carGo';
   title='toaster-not';
+  name='Angular' + VERSION.major;
+
+  myArray=[
+
+  ]
 
   constructor(private notifyService : NotificationService) { }
 
