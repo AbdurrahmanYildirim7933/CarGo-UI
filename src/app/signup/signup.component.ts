@@ -19,8 +19,6 @@ export class SignupComponent implements OnInit{
   code:string=""
 
 
-
-
   ngOnInit(){
     //this.toastrService.error("hata");
 

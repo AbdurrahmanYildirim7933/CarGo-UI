@@ -5,19 +5,14 @@ import {SignupComponent} from "./signup/signup.component";
 import {MainPageComponent} from "./main-page/main-page.component";
 import {ProfileComponent} from "./profile/profile.component";
 import {GarageComponent} from "./garage/garage.component";
-import {ShopComponent} from "./shop/shop.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   {path: 'signup', component: SignupComponent},
   {path: 'profile',component:ProfileComponent},
   {path: 'main-page', component:MainPageComponent},
-  {path: 'garage',component:GarageComponent},
-  {path:'shop',component:ShopComponent},
-  {path: 'main-page', component:MainPageComponent},
-  /*{path:"create",component:ProfileComponent},
-  {path:"update",component:ProfileComponent},
- */
+  {path: 'garage',component:GarageComponent}
+
 ];
 
 @NgModule({

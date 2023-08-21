@@ -1,3 +1,5 @@
+
+
 .container {
   padding: 24px;
 
@@ -26,8 +28,39 @@ img {
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   background: linear-gradient(to right, rgba(222, 244, 252, 1), rgba(164, 132, 172, 1))
 }
-body {
-  background-image: url(src/app/garage/images/background.jpg);
+section {
   background-size: cover;
 }
+
+.collection-filter__toolbar-controls__button {
+  border: 1px solid grey;
+  border-radius: 3px;
+  color: grey;
+  display: inline-block;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 12px;
+  text-transform: uppercase;
+  float: left;
+}
+
+.collection-filter__sort-select-filter {
+  -webkit-appearance: menulist-button;
+  -moz-appearance: menulist-button;
+  -ms-appearance: menulist-button;
+  -o-appearance: menulist-button;
+  appearance: menulist-button;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 62px;
+  opacity: .001;
+  height: 42px;
+}
+
+.example-form-field{
+  margin: 7px;
+}
+
+
 

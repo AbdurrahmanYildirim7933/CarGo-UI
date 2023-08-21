@@ -1,7 +1,8 @@
 import { Component,ViewChild } from '@angular/core';
 
-import { NotificationService } from './notification.service'
+
 import {VERSION} from "@angular/cdk";
+import {NotificationService} from "./notification.service";
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -16,7 +17,7 @@ export class AppComponent {
 
   ]
 
-  constructor(private notifyService : NotificationService) { }
+  constructor(private notifyService:NotificationService) { }
 
   showToasterSuccess(){
     this.notifyService.showSuccess("Data shown successfully !!", "ItSolutionStuff.com")

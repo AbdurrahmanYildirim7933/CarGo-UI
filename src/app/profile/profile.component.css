@@ -28,7 +28,7 @@ html {
 
 body {
   background-image: url(src/app/profile/images/banner.jpg);
-  background-size: cover;
+  background-size: initial;
 }
 
 /* ---------- body element's */

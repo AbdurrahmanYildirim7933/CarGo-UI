@@ -1,47 +1,120 @@
-<body>
+<section>
 <mat-toolbar color="primary"> List Of My Garages
+  <span class="col-md-9"></span>
+  <button mat-button  type="button" class="btn btn-dark btn-outline-success" data-bs-toggle="modal"
+          data-bs-target="#staticBackdropCreate">
+    Create New Garage </button>
 </mat-toolbar>
-<div class="container responsive-grid">
-
-  <mat-card *ngFor="let garage of myGarage">
-    <mat-card-header>
-      <mat-card-title>{{ garage.name }} </mat-card-title>
-    </mat-card-header>
-    <br />
-    <img mat-card-image [src]="url" />
-    <mat-card-content>
-      <br />
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button class="gradient-custom" >Edit</button>
-      <span class="container-fluid"></span>
-      <button mat-button class="gradient-custom" (click)="deleteGarage(garage.id)">Delete</button>
-
-    </mat-card-actions>
-  </mat-card>
-  <button mat-button  type="button" class="btn btn-primary" data-bs-toggle="modal"
-          data-bs-target="#staticBackdrop">
-    Create Garage </button>
-</div>
-</body>
-
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title" id="staticBackdropLabel">Garaj ismi giriniz</h3>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <input class="form-control form-control-lg"  [(ngModel)]="createdGarage.name">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" (click)="createGarage()" class="btn btn-primary">Send</button>
+  <!-- ModalForCreate -->
+  <div class="modal fade alert" id="staticBackdropCreate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="staticBackdropCreateLabel">Garaj ismi giriniz</h3>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <input class="form-control form-control-lg"  [(ngModel)]="createdGarage.name">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" (click)="createGarage()" class="btn btn-primary">Create</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
+  <!-- ModalForDetail -->
+  <div class="modal fade"   id="staticBackdropDetail" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered ">
+      <div class="modal-content"*ngIf="selectedGarage">
+        <div class="modal-header">
+          <h3 class="modal-title" id="staticBackdropDetailLabel">Garajlar</h3>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <input placeholder="Name" class="form-control form-control-lg"  [(ngModel)]="selectedGarage.name">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="details(selectedGarage.id)" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ModalForUpdate -->
+  <div class="modal fade" id="staticBackdropUpdate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered ">
+      <div class="modal-content gradient-custom">
+        <div class="modal-header">
+          <h3 class="modal-title" id="staticBackdropUpdateLabel">Garajın yeni ismini giriniz</h3>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <input placeholder="Name" class="form-control form-control-lg"  [(ngModel)]="updatedGarage.name">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button"  class="btn btn-outline-success" (click)="updateGarage(selectedGarage.id)">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ModalForDelete -->
+  <div class="modal fade" id="staticBackdropDelete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered ">
+      <div class="modal-content gradient-custom">
+        <div class="modal-header">
+          <h3 class="modal-title" id="staticBackdropDeleteLabel">Garaj siliniyor, emin misiniz?</h3>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button"  class="btn btn-outline-danger" (click)="deleteGarage(selectedGarage.id) ">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col" >Id</th>
+      <th scope="col" ><i (click)="sortByName()" class="fas fa-sort"></i>Name</th>
+      <th scope="col">Details</th>
+      <th scope="col">Update</th>
+      <th scope="col">Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let garage of myGarage">
+      <td>{{garage.id}}</td>
+      <td>{{garage.name}}</td>
+      <td><button class="btn btn-outline-primary" data-bs-toggle="modal"
+                  data-bs-target="#staticBackdropDetail" (click)="getGarage(garage.id)">Details</button>
+      </td>
+      <td><button class="btn btn-outline-success " data-bs-toggle="modal"
+                  data-bs-target="#staticBackdropUpdate" (click)="getGarage(garage.id)" >Update</button></td>
+      <td><button class="btn btn-outline-danger" data-bs-toggle="modal"
+                  data-bs-target="#staticBackdropDelete" (click)="getGarage(garage.id)">Delete</button></td>
+    </tr>
+    </tbody>
+  </table>
+  <nav aria-label="...">
+    <ul class="pagination">
+      <li class="page-item">
+        <a (click)="setPage('negative')"  class="page-link">Previous</a>
+      </li>
+      <input [(ngModel)]="page">
+      <li class="page-item">
+        <a (click)="setPage('positive')" class="page-link">Next</a>
+      </li>
+    </ul>
+  </nav>
+</section>
+
+
+
+
+
+
+
 
 

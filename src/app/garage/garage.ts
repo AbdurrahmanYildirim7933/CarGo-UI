@@ -1,10 +1,12 @@
 import {UserDTO} from "../login/UserDTO";
+import {Car} from "./car";
 
 export class Garage {
 
   id: number;
   name: string;
   owner:UserDTO;
+  cars : Car[];
 
 }
 export const UserColumns = [

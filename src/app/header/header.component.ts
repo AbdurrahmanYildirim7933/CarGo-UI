@@ -17,6 +17,7 @@ export class HeaderComponent implements OnInit,OnDestroy{
   public userIsAuthenticated = true;
 
 
+
 constructor(private profileService: ProfileService,private loginService:LoginService,private router: Router) {
 
   }
@@ -39,8 +40,7 @@ constructor(private profileService: ProfileService,private loginService:LoginSer
   getProfileData(): void {
     this.profileService.profile().subscribe(
       (response: any) => {
-        this.myDetails.name = response["name"];
-        console.log('User Data:', this.myDetails);
+        this.myDetails = response;
       },
       (error: any) => {
         console.error('Error retrieving profile data');
@@ -57,6 +57,8 @@ constructor(private profileService: ProfileService,private loginService:LoginSer
   goToShop(){
   this.router.navigate(["/shop"]);
   }
+
+
 
 
 }

@@ -17,13 +17,16 @@ export class ProfileComponent implements OnInit{
   myDetails: ProfileDetails = new ProfileDetails();
 
 
-  constructor(private http: HttpClient,private router:Router,protected cookieService:CookieService,private profileService:ProfileService) {
+  constructor(private router:Router,protected cookieService:CookieService,private profileService:ProfileService) {
 
   }
     ngOnInit(): void {
       this.getProfileData();
     }
 
+    public getMyId():number{
+      return this.myDetails.id;
+    }
 
     getProfileData(): void {
       this.profileService.profile().subscribe(
