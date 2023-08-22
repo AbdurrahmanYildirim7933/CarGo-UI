@@ -15,6 +15,7 @@ import { HeaderComponent } from './header/header.component';
 import { ProfileComponent } from './profile/profile.component';
 import { FooterComponent } from './footer/footer.component';
 import {MatToolbarModule} from "@angular/material/toolbar";
+import {ShopComponent} from "./shop/shop.component";
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import {MatToolbarModule} from "@angular/material/toolbar";
     HeaderComponent,
     ProfileComponent,
     FooterComponent,
+    ShopComponent,
 
      ],
   imports: [
