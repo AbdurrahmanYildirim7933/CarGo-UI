@@ -39,13 +39,21 @@ export class ShopService {
       `${this.apiUrl}/api/v1/shop/get-shop?page=${page}&size=${size}`, {headers});
     ;
   }
-
-  sortByName() {
+/*
+  sortByName(shop:ShopDTO) {
     const headers = this.profileService.createHeaders();
     console.log(headers)
-    return this.httpClient.get<any[]>(`${this.apiUrl}/api/v1/shop/get-shop`, {headers});
+    return this.httpClient.post<any[]>(`${this.apiUrl}/api/v1/shop/get-shop`, shop,{headers});
 
 
+  }*/
+  filterByName(shop: ShopDTO,page:number,size:number){
+    const headers = this.profileService.createHeaders();
+    console.log(headers)
+    return this.httpClient.post<any[]>(`${this.apiUrl}/api/v1/shop/get-shop?page=${page}&size=${size}`,shop ,{headers});
   }
 
+  search(){
+
+  }
 }

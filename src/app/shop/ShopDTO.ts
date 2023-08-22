@@ -4,6 +4,7 @@ export class ShopDTO{
   phone:string;
   address:string;
   owner:string
+  text:string
 
 
   mapper(shop:any){
@@ -12,6 +13,7 @@ export class ShopDTO{
     this.phone = shop.email;
     this.address=shop.lastName;
     this.owner=shop.owner;
+    this.text=shop.text;
 
   }
 

@@ -4,6 +4,7 @@ import {ShopDTO} from "./ShopDTO";
 import {ShopService} from "./shop.service";
 import {MatTableModule} from "@angular/material/table";
 import {ToastrService} from "ngx-toastr";
+import {UserDTO} from "../login/UserDTO";
 
 @Component({
   selector: 'app-shop',
@@ -13,13 +14,15 @@ import {ToastrService} from "ngx-toastr";
 })
 export class ShopComponent implements OnInit{
   shops:ShopDTO[]=[];
+  shop: ShopDTO = new ShopDTO();
   constructor(private shopService:ShopService,private toastr:ToastrService) {
   }
   isAscendingSort=true;
 
   ngOnInit():void {
-    this.loadShops();
-    this.sortByName();
+    //this.loadShops();
+    //this.sortByName();
+    this.filterByName();
 
   }
   page:number = 0;
@@ -42,8 +45,8 @@ export class ShopComponent implements OnInit{
     })
   }
 
-  sortByName(){
-    this.shopService.sortByName().subscribe( (res) => {
+  /*sortByName(){
+    this.shopService.sortByName(this.shop).subscribe( (res) => {
 const shops=res;
 const sortDirection=this.isAscendingSort ? 1: -1;
       shops.sort((a, b) =>
@@ -53,7 +56,15 @@ const sortDirection=this.isAscendingSort ? 1: -1;
       this.isAscendingSort = !this.isAscendingSort;
 
     },)
+  }*/
+  filterByName(){
+    this.shopService.filterByName(this.shop,this.page,this.size).subscribe(res=>{
+      this.shops=res;
+    })
+
   }
+
+
 
 }
 
