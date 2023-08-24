@@ -1,10 +1,25 @@
 <section>
 <mat-toolbar color="primary"> List Of My Garages
-  <span class="col-md-9"></span>
+  <div class="d-flex justify-content-end mt-3">
+
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="form-outline flex-grow-1 me-2">
+          <input type="text" name="search" [(ngModel)]="searchGarage.name" class="form-control" placeholder="Search by name" />
+        </div>
+        <button type="button" class="btn btn-danger" (click)="filterByName()">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </div>
+
+  </div>
+  <span class="col-md-6"></span>
   <button mat-button  type="button" class="btn btn-dark btn-outline-success" data-bs-toggle="modal"
           data-bs-target="#staticBackdropCreate">
     Create New Garage </button>
 </mat-toolbar>
+
   <!-- ModalForCreate -->
   <div class="modal fade alert" id="staticBackdropCreate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -18,21 +33,31 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" (click)="createGarage()" class="btn btn-primary">Create</button>
+          <button type="button" (click)="createGarage()" data-bs-dismiss="modal" class="btn btn-primary">Create</button>
         </div>
       </div>
     </div>
   </div>
   <!-- ModalForDetail -->
   <div class="modal fade"   id="staticBackdropDetail" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered ">
+    <div class="modal-dialog modal-fullscreen ">
       <div class="modal-content"*ngIf="selectedGarage">
         <div class="modal-header">
-          <h3 class="modal-title" id="staticBackdropDetailLabel">Garajlar</h3>
+          <h1 class="modal-title " id="staticBackdropDetailLabel">{{selectedGarage.name}}</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <input placeholder="Name" class="form-control form-control-lg"  [(ngModel)]="selectedGarage.name">
+          <div class="card"   style="width: 18rem;">
+            <img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTwlfN1cJZyF7jmaYL4K1sPWNRzW9Sdjj00g&usqp=CAU" alt="Card image cap">
+            <div class="card-body">
+              <h2 class="card-title"></h2>
+              <p class="card-text"></p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+
+
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" (click)="details(selectedGarage.id)" data-bs-dismiss="modal">Close</button>
@@ -43,7 +68,7 @@
   <!-- ModalForUpdate -->
   <div class="modal fade" id="staticBackdropUpdate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered ">
-      <div class="modal-content gradient-custom">
+      <div class="modal-content gradient-custom " *ngIf="selectedGarage">
         <div class="modal-header">
           <h3 class="modal-title" id="staticBackdropUpdateLabel">Garajın yeni ismini giriniz</h3>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -53,7 +78,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button"  class="btn btn-outline-success" (click)="updateGarage(selectedGarage.id)">Update</button>
+          <button type="button"  class="btn btn-outline-success" data-bs-dismiss="modal" (click)="updateGarage(selectedGarage.id)">Update</button>
         </div>
       </div>
     </div>
@@ -68,7 +93,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button"  class="btn btn-outline-danger" (click)="deleteGarage(selectedGarage.id) ">Delete</button>
+          <button type="button"  class="btn btn-outline-danger" data-bs-dismiss="modal" (click)="deleteGarage(selectedGarage.id) ">Delete</button>
         </div>
       </div>
     </div>
@@ -88,7 +113,7 @@
       <td>{{garage.id}}</td>
       <td>{{garage.name}}</td>
       <td><button class="btn btn-outline-primary" data-bs-toggle="modal"
-                  data-bs-target="#staticBackdropDetail" (click)="getGarage(garage.id)">Details</button>
+                  data-bs-target="#staticBackdropDetail" (click)="getGarage(garage.id)">Cars in the garage</button>
       </td>
       <td><button class="btn btn-outline-success " data-bs-toggle="modal"
                   data-bs-target="#staticBackdropUpdate" (click)="getGarage(garage.id)" >Update</button></td>

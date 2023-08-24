@@ -8,12 +8,20 @@ import {PreloadingFeature, Router} from "@angular/router";
 import {ProfileService} from "../profile/profile.service";
 import {CookieService} from "ngx-cookie-service";
 import {reportUnhandledError} from "rxjs/internal/util/reportUnhandledError";
+import {Operation} from "fast-json-patch"
+import {ShopDTO} from "../shop/ShopDTO";
 
 @Injectable({
   providedIn: 'root'
 })
 export class GarageService {
   apiUrl="http://localhost:8080";
+  token :String = this.cookieService.get("MyCookie");
+
+  data: Garage;
+
+
+
 
   user: UserDTO;
     public search = new BehaviorSubject<string>("");
@@ -25,6 +33,12 @@ export class GarageService {
     let url = `http://localhost:8080/api/v1/garage/garages-by-active-user?page=${page}&size=${size}`;
     const headers = this.profileService.createHeaders();
       return this.httpClient.get<Garage[]>(url,{headers});
+  }
+
+  getCars(garage:Garage,page:number,size:number):Observable<Car[]>{
+    let url = `http://localhost:8080/api/v1/garage/${garage.id}/cars?page=${page}&size=${size}`;
+    const headers = this.profileService.createHeaders();
+    return this.httpClient.get<Car[]>(url,{headers});
   }
 
   getGarage(id:number):Observable<Garage>{
@@ -43,10 +57,9 @@ export class GarageService {
 
   }
 
-  updateGarage (id:number,garage : Garage):Observable<Object>{
-    const headers = this.profileService.createHeaders();
-    console.log(garage);
-    return this.httpClient.patch(`${this.apiUrl}/api/v1/garage/update-garage/${id}` ,garage ,{headers});
+  updateGarage (id:number,operations:Operation[]):Observable<Object>{
+    const headers = this.createPatchHeaders();
+    return this.httpClient.patch(`${this.apiUrl}/api/v1/garage/update-garage/${id}` ,operations ,{headers});
 
   }
 
@@ -64,5 +77,20 @@ export class GarageService {
     this._listeners.next(filterBy);
   }
 
+  createPatchHeaders(): HttpHeaders {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json-patch+json',
+    });
+
+    headers = headers.append('Authorization', `Bearer ${(this.token)}`);
+
+    return headers;
+  }
+
+  filterByName(garage: Garage,page:number,size:number){
+    const headers = this.profileService.createHeaders();
+    console.log(headers)
+    return this.httpClient.post<any[]>(`${this.apiUrl}/api/v1/garage/garages-by-active-user?page=${page}&size=${size}`,garage ,{headers});
+  }
 
 }

@@ -8,7 +8,7 @@ export class UserDTO{
   identityNumber:string;
   verifyCode : string;
 
-  mapper(user:any){
+  bindObject(user:any){
     this.id = user.id;
     this.name = user.name;
     this.email = user.email;

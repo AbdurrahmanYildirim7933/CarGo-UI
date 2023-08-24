@@ -52,7 +52,7 @@ export class SignupComponent implements OnInit{
           console.log("Kullanıcı başarıyla kaydedildi.");
           this.verifyCodeEntry = true;
           this.user = new UserDTO();
-          this.user.mapper(res);
+          this.user.bindObject(res);
 
         },
         error => {
