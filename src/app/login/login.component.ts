@@ -31,6 +31,7 @@ constructor(private http: HttpClient, private router:Router,private cookieServic
 
   }
   goToSignup(): void{
+  debugger;
 
     this.router.navigate(['/signup']);
   }

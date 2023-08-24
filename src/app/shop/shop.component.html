@@ -13,10 +13,38 @@
 
 </div>
 
+<!-- ModalForUpdate -->
+
+
+<div class="modal fade" id="staticBackdropUpdate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered ">
+    <div class="modal-content gradient-custom">
+      <div class="modal-header">
+        <h3 class="modal-title" id="staticBackdropUpdateLabel"> Değişiklikleri giriniz</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input placeholder="Name" class="form-control form-control-lg m-2"  [(ngModel)]="updatedShop.name">
+        <input placeholder="Phone" class="form-control form-control-lg m-2"  [(ngModel)]="updatedShop.phone">
+        <input placeholder="Address" class="form-control form-control-lg m-2"  [(ngModel)]="updatedShop.address">
+        <input placeholder="Owner" class="form-control form-control-lg m-2"  [(ngModel)]="updatedShop.owner">
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button"  class="btn btn-outline-success" (click)="updateShop()">Update</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 <table class="table">
   <thead>
   <tr>
-    <th scope="col">#</th>
+
     <th scope="col">Name <i  class="fas fa-sort"></i></th>
     <th scope="col">Phone</th>
     <th scope="col">Address</th>
@@ -26,8 +54,14 @@
   </thead>
   <tbody>
   <tr *ngFor="let shop of shops; let index = index">
-    <th class="table-light" scope="row">{{ index + 1 }}</th>
-    <td class="table-danger">{{ shop.name }}</td>
+    <td class="table-danger">
+      <div class="d-flex justify-content-between align-items-center">
+        <span>{{ shop.name }}</span>
+        <button (click)="setSelectShop(shop)" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdropUpdate">
+          Update Shop
+        </button>
+      </div>
+    </td>
     <td class="table-success">{{ shop.phone }}</td>
     <td class="table-info">{{ shop.address }}</td>
     <td class="table-warning">{{ shop.owner }}</td>
@@ -35,7 +69,6 @@
   </tr>
   </tbody>
 </table>
-
 <nav aria-label="...">
   <ul class="pagination">
     <li class="page-item">
@@ -47,3 +80,4 @@
     </li>
   </ul>
 </nav>
+

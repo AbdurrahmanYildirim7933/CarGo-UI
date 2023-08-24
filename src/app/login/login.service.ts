@@ -20,7 +20,6 @@ export class LoginService {
 
   login(user:UserDTO): void {
 
-debugger
     this.http.post<any>(`${this.apiUrl}/api/v1/auth/login`, user).subscribe(
       (response) => {
         this.cookieService.set("MyCookie", response["token"], 1);
@@ -28,7 +27,6 @@ debugger
         console.log('Kullanıcı girişi başarılı:', response);
         this.router.navigate(['/main-page']);
         this.authStatusListener.next(true);
-
 
       },
       (error) => {

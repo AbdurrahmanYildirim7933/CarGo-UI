@@ -1,5 +1,5 @@
 export class ShopDTO{
-  id:bigint;
+  id:number;
   name:string;
   phone:string;
   address:string;
@@ -7,11 +7,11 @@ export class ShopDTO{
   text:string
 
 
-  mapper(shop:any){
+  mapper(shop:ShopDTO){
     this.id = shop.id;
     this.name = shop.name;
-    this.phone = shop.email;
-    this.address=shop.lastName;
+    this.phone = shop.phone;
+    this.address=shop.address;
     this.owner=shop.owner;
     this.text=shop.text;
 

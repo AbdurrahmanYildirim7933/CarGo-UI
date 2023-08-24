@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {ShopDTO} from "./ShopDTO";
-import {CookieService} from "ngx-cookie-service";
 import {ProfileService} from "../profile/profile.service";
 import {Observable} from "rxjs";
+import {Garage} from "../garage/garage";
+import {Operation} from "fast-json-patch";
+
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +16,7 @@ export class ShopService {
 
   constructor(private httpClient: HttpClient, private profileService: ProfileService) {
   }
+
 
   getToken() {
     let _token = "";
@@ -39,6 +42,8 @@ export class ShopService {
       `${this.apiUrl}/api/v1/shop/get-shop?page=${page}&size=${size}`, {headers});
     ;
   }
+
+
 /*
   sortByName(shop:ShopDTO) {
     const headers = this.profileService.createHeaders();
@@ -53,7 +58,14 @@ export class ShopService {
     return this.httpClient.post<any[]>(`${this.apiUrl}/api/v1/shop/get-shop?page=${page}&size=${size}`,shop ,{headers});
   }
 
-  search(){
+  updateShop(operations:Operation[],id:number){
+    const headers = this.profileService.createHeaders();
+    console.log(headers)
+    return this.httpClient.patch<any[]>(`${this.apiUrl}/api/v1/shop/update-shop?id=${id}`,operations ,{headers});
 
+  }
+  getShop(id:number):Observable<ShopDTO>{
+    const headers = this.profileService.createHeaders();
+    return this.httpClient.get<ShopDTO>(`${this.apiUrl}/api/v1/shop/get-shop/${id}`,{headers});
   }
 }
