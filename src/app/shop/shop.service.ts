@@ -64,6 +64,12 @@ export class ShopService {
     return this.httpClient.patch<any[]>(`${this.apiUrl}/api/v1/shop/update-shop?id=${id}`,operations ,{headers});
 
   }
+  showMessages(time:number){
+    const headers = this.profileService.createHeaders();
+    console.log(headers)
+    return this.httpClient.get<any[]>(`${this.apiUrl}/api/v1/shop/check/`+time,{headers});
+
+  }
   getShop(id:number):Observable<ShopDTO>{
     const headers = this.profileService.createHeaders();
     return this.httpClient.get<ShopDTO>(`${this.apiUrl}/api/v1/shop/get-shop/${id}`,{headers});

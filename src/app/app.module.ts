@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -16,6 +15,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { FooterComponent } from './footer/footer.component';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {ShopComponent} from "./shop/shop.component";
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 
 @NgModule({
@@ -30,7 +30,6 @@ import {ShopComponent} from "./shop/shop.component";
     ProfileComponent,
     FooterComponent,
     ShopComponent,
-
      ],
   imports: [
     BrowserModule,
@@ -40,7 +39,8 @@ import {ShopComponent} from "./shop/shop.component";
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     ReactiveFormsModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatPaginatorModule
   ],
 
   providers: [  provideAnimations(), // required animations providers

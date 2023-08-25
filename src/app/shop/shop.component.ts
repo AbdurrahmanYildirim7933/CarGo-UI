@@ -1,10 +1,8 @@
 import { Component,OnInit } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
 import {ShopDTO} from "./ShopDTO";
 import {ShopService} from "./shop.service";
 import {ToastrService} from "ngx-toastr";
 import {BehaviorSubject, Observable} from "rxjs";
-import {Garage} from "../garage/garage";
 import {compare} from "fast-json-patch/commonjs/duplex";
 
 @Component({
@@ -17,6 +15,7 @@ export class ShopComponent implements OnInit{
   shops:ShopDTO[]=[];
   shop: ShopDTO = new ShopDTO();
   selectedShop:ShopDTO
+
   constructor(private shopService:ShopService,private toastr:ToastrService) {
   }
   updatedShop:ShopDTO = new ShopDTO();
@@ -24,10 +23,10 @@ export class ShopComponent implements OnInit{
 
   ngOnInit():void {
     const observable =new Observable<string>(data=>{
-      data.next("dilan");
-      data.next("dilan");
-      data.next("dilan");
+
       data.complete();
+      this.showMessages();
+
     });
  /*  const observer = function(data:any){
      console.log(data);
@@ -42,6 +41,51 @@ export class ShopComponent implements OnInit{
     //this.loadShops();
     //this.sortByName();
     this.filterByName();
+
+  }
+   writeLog(message:string){
+    console.log(message);
+  }
+  showMessages() {
+    let a = new Promise((success,rej)=>{
+        this.shopService.showMessages(5).subscribe(res=>{
+          success(true)
+        },error => {
+        })
+    });
+
+
+    a.then(res=>{
+      this.writeLog("beş"+res);
+    })
+
+
+
+    let b = new Promise((success,rej)=>{
+      this.shopService.showMessages(3).subscribe(res=>{
+        success(true)
+      },error => {
+      })
+    });
+
+
+    b.then(res=>{
+      this.writeLog("üç"+res);
+    })
+
+
+    let c = new Promise((success,rej)=>{
+      this.shopService.showMessages(1).subscribe(res=>{
+        success(true)
+      },error => {
+      })
+    });
+
+
+    c.then(res=>{
+      this.writeLog("bir"+res);
+    })
+
 
   }
   page:number = 0;
@@ -65,7 +109,7 @@ export class ShopComponent implements OnInit{
   }
 
   changeShop(newData: ShopDTO) {
-    this.shopSource.next(newData)
+    this.selectedShop.mapper(newData)
   }
 
 
@@ -87,20 +131,16 @@ const sortDirection=this.isAscendingSort ? 1: -1;
     })
 
   }
-  shopSource = new BehaviorSubject<any>({})
 
   setSelectShop(shop:ShopDTO){
-    let _shop = this.shopSource.asObservable();
     this.selectedShop = new ShopDTO();
     this.selectedShop.mapper(shop);
     this.updatedShop = new ShopDTO();
     this.updatedShop.mapper(shop);
-    this.changeShop(this.selectedShop);
     console.log(this.updatedShop)
   }
   updateShop(){
-    this.changeShop(this.updatedShop);
-    const patch = compare(this.selectedShop, this.shopSource.getValue());
+    const patch = compare(this.selectedShop, this.updatedShop);
     this.shopService.updateShop(patch,this.selectedShop.id).subscribe
     ((res: any) => {
         console.log("Shop başarıyla güncellendi.");

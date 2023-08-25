@@ -13,8 +13,7 @@ const routes: Routes = [
   {path: 'profile',component:ProfileComponent},
   {path: 'main-page', component:MainPageComponent},
   {path: 'garage',component:GarageComponent},
-  {path:'shop',component:ShopComponent}
-
+  {path:'shop',component:ShopComponent},
 ];
 
 @NgModule({
