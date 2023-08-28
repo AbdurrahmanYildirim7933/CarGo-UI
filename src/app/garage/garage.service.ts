@@ -17,12 +17,7 @@ import {ShopDTO} from "../shop/ShopDTO";
 export class GarageService {
   apiUrl="http://localhost:8080";
   token :String = this.cookieService.get("MyCookie");
-
   data: Garage;
-
-
-
-
   user: UserDTO;
     public search = new BehaviorSubject<string>("");
 

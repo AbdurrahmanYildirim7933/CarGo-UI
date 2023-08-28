@@ -25,7 +25,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "angular": "^1.8.3",
     "angular-fast-json-patch": "^0.0.4",
-    "bootstrap": "^5.3.1",
+    "bootstrap": "^5.2.0",
     "cookieconsent": "^3.1.1",
     "fast-json-patch": "^3.1.1",
     "ngx-bootstrap": "^11.0.2",
