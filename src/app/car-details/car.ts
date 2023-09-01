@@ -1,4 +1,4 @@
-import {Garage} from "./garage";
+import {Garage} from "../garage/garage";
 import {UserDTO} from "../login/UserDTO";
 import {Brand} from "./brand";
 import {Model} from "./model";
@@ -18,6 +18,18 @@ export class Car{
     if(obj.year){
       this.year=obj.year;
     }
+
+    if(obj.licensePlate){
+      this.licensePlate=obj.licensePlate;
+    }
+
+    if(obj.brand){
+      this.brand=obj.brand;
+    }
+    if(obj.model){
+      this.model=obj.model;
+    }
+
   }
 }
 

@@ -1,0 +1,86 @@
+
+<section>
+  <!-- ModalForCreate -->
+  <div class="modal fade alert" id="staticBackdropCreateCar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="staticBackdropCreateLabel">Add Car</h3>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <select  class="form-select form-control-lg m-2" aria-label="Default select example">
+            <option selected>Select Brand</option>
+            <option  [(ngModel)]="selectedBrand"  (ngModelChange)="onChange($event)" *ngFor="let brand of brands" [ngValue]="brand" >{{brand.name}}</option>
+            <h4>selected value is {{selectedBrand.id}}</h4>
+          </select>
+          <select  (click)="getModels(selectedBrand.id)" class="form-select form-control-lg m-2" aria-label="Default select example">
+            <option selected>Select Model</option>
+            <option *ngFor="let model of models" value="{{model.name}}">{{model.name}}</option>
+          </select>
+          <input class="form-control form-control-lg m-2" placeholder="Year"  [(ngModel)]="createdCar.year">
+          <input class="form-control form-control-lg m-2" placeholder="LicensePlate"  [(ngModel)]="createdCar.licensePlate">
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" (click)="createCar()"  data-bs-dismiss="modal" class="btn btn-primary">Add Car</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<div class="container">
+  <div class="row" id="ads">
+
+    <!-- Category Card -->
+    <button *ngIf="myCars!=null || myCars!=[]" type="button" class="btn btn-outline-danger col-md-2" data-bs-toggle="modal"
+            data-bs-target="#staticBackdropCreateCar">
+     Add A Car To Garage
+      </button>
+
+    <div class="col-md-2" *ngFor="let car of myCars">
+        <div class="card rounded">
+          <div class="card-image">
+            <span class="card-notify-badge">{{car.licensePlate}}</span>
+            <span class="card-notify-year">{{car.year}}</span>
+            <img class="img-fluid" src="https://imageonthefly.autodatadirect.com/images/?USER=eDealer&PW=edealer872&IMG=USC80HOC011A021001.jpg&width=440&height=262" alt="Alternate Text" />
+          </div>
+          <div class="card-body text-center">
+            <div class="ad-title m-auto">
+              <h5>{{car.brand.name}} {{car.model.name}}</h5>
+            </div>
+            <a routerLink="/garage/{{garage.id}}/car/{{car.id}}" class="ad-btn">View/Edit</a>
+            <a class="ad-btn bg-danger" (click)="deleteCar(car.id)">Delete</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <ul class="pagination">
+      <li class="page-item">
+        <a (click)="setPage('negative')"  class="page-link">Previous</a>
+      </li>
+      <input [(ngModel)]="page" (keyup.enter)="goPage(page)" >
+      <li class="page-item">
+        <a (click)="setPage('positive')" class="page-link">Next</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link">Total Pages : {{totalPages}}</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link">Total Cars : {{totalItems}}</a>
+      </li>
+      <span class="col-md-5"> </span>
+      <li class="page-item">
+        <a class="page-link">Total Cars on this page  : {{pageItems}}</a>
+      </li>
+
+    </ul>
+
+</div>
+
+
+</section>

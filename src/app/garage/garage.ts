@@ -1,5 +1,5 @@
 import {UserDTO} from "../login/UserDTO";
-import {Car} from "./car";
+import {Car} from "../car-details/car";
 
 export class Garage {
 

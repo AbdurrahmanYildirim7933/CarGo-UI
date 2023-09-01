@@ -6,6 +6,8 @@ import {MainPageComponent} from "./main-page/main-page.component";
 import {ProfileComponent} from "./profile/profile.component";
 import {GarageComponent} from "./garage/garage.component";
 import {ShopComponent} from "./shop/shop.component";
+import {GarageDetailsComponent} from "./garage-details/garage-details.component";
+import {CarDetailsComponent} from "./car-details/car-details.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -14,6 +16,8 @@ const routes: Routes = [
   {path: 'main-page', component:MainPageComponent},
   {path: 'garage',component:GarageComponent},
   {path:'shop',component:ShopComponent},
+  {path:'garage/:id',component:GarageDetailsComponent},
+  {path:'garage/:id/car/:cid',component:CarDetailsComponent}
 ];
 
 @NgModule({

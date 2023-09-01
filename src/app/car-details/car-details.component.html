@@ -1,0 +1,152 @@
+<div class="container py-4 my-4 mx-auto d-flex flex-column">
+    <div class="header">
+        <div class="row r1">
+            <div class="col-md-9 abc">
+                <h1>{{car.brand.name}} {{car.model.name}}</h1>
+              <h2>{{car.licensePlate}}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="container-body mt-4">
+        <div class="row r3">
+            <div class="col-md-5 p-0 klo">
+              <!-- Editable table -->
+              <div class="card">
+                <h3 class="card-header text-center font-weight-bold text-uppercase py-4">
+                  Editable table
+                </h3>
+                <div class="card-body">
+                  <div id="table" class="table-editable">
+      <span class="table-add float-right mb-3 mr-2"
+      ><a href="#!" class="text-success"
+      ><i class="fas fa-plus fa-2x" aria-hidden="true"></i></a
+      ></span>
+                    <table class="table table-bordered table-responsive-md table-striped text-center">
+                      <thead>
+                      <tr>
+                        <th class="text-center">Person Name</th>
+                        <th class="text-center">Age</th>
+                        <th class="text-center">Company Name</th>
+                        <th class="text-center">Country</th>
+                        <th class="text-center">City</th>
+                        <th class="text-center">Sort</th>
+                        <th class="text-center">Remove</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr>
+                        <td class="pt-3-half" contenteditable="true">Aurelia Vega</td>
+                        <td class="pt-3-half" contenteditable="true">30</td>
+                        <td class="pt-3-half" contenteditable="true">Deepends</td>
+                        <td class="pt-3-half" contenteditable="true">Spain</td>
+                        <td class="pt-3-half" contenteditable="true">Madrid</td>
+                        <td class="pt-3-half">
+              <span class="table-up"
+              ><a href="#!" class="indigo-text"
+              ><i class="fas fa-long-arrow-alt-up" aria-hidden="true"></i></a
+              ></span>
+                          <span class="table-down"
+                          ><a href="#!" class="indigo-text"
+                          ><i class="fas fa-long-arrow-alt-down" aria-hidden="true"></i></a
+                          ></span>
+                        </td>
+                        <td>
+              <span class="table-remove"
+              ><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">
+                  Remove
+                </button></span
+              >
+                        </td>
+                      </tr>
+                      <!-- This is our clonable table line -->
+                      <tr>
+                        <td class="pt-3-half" contenteditable="true">Guerra Cortez</td>
+                        <td class="pt-3-half" contenteditable="true">45</td>
+                        <td class="pt-3-half" contenteditable="true">Insectus</td>
+                        <td class="pt-3-half" contenteditable="true">USA</td>
+                        <td class="pt-3-half" contenteditable="true">San Francisco</td>
+                        <td class="pt-3-half">
+              <span class="table-up"
+              ><a href="#!" class="indigo-text"
+              ><i class="fas fa-long-arrow-alt-up" aria-hidden="true"></i></a
+              ></span>
+                          <span class="table-down"
+                          ><a href="#!" class="indigo-text"
+                          ><i class="fas fa-long-arrow-alt-down" aria-hidden="true"></i></a
+                          ></span>
+                        </td>
+                        <td>
+              <span class="table-remove"
+              ><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">
+                  Remove
+                </button></span
+              >
+                        </td>
+                      </tr>
+                      <!-- This is our clonable table line -->
+                      <tr>
+                        <td class="pt-3-half" contenteditable="true">Guadalupe House</td>
+                        <td class="pt-3-half" contenteditable="true">26</td>
+                        <td class="pt-3-half" contenteditable="true">Isotronic</td>
+                        <td class="pt-3-half" contenteditable="true">Germany</td>
+                        <td class="pt-3-half" contenteditable="true">Frankfurt am Main</td>
+                        <td class="pt-3-half">
+              <span class="table-up"
+              ><a href="#!" class="indigo-text"
+              ><i class="fas fa-long-arrow-alt-up" aria-hidden="true"></i></a
+              ></span>
+                          <span class="table-down"
+                          ><a href="#!" class="indigo-text"
+                          ><i class="fas fa-long-arrow-alt-down" aria-hidden="true"></i></a
+                          ></span>
+                        </td>
+                        <td>
+              <span class="table-remove"
+              ><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">
+                  Remove
+                </button></span
+              >
+                        </td>
+                      </tr>
+                      <!-- This is our clonable table line -->
+                      <tr class="hide">
+                        <td class="pt-3-half" contenteditable="true">Elisa Gallagher</td>
+                        <td class="pt-3-half" contenteditable="true">31</td>
+                        <td class="pt-3-half" contenteditable="true">Portica</td>
+                        <td class="pt-3-half" contenteditable="true">United Kingdom</td>
+                        <td class="pt-3-half" contenteditable="true">London</td>
+                        <td class="pt-3-half">
+              <span class="table-up"
+              ><a href="#!" class="indigo-text"
+              ><i class="fas fa-long-arrow-alt-up" aria-hidden="true"></i></a
+              ></span>
+                          <span class="table-down"
+                          ><a href="#!" class="indigo-text"
+                          ><i class="fas fa-long-arrow-alt-down" aria-hidden="true"></i></a
+                          ></span>
+                        </td>
+                        <td>
+              <span class="table-remove"
+              ><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">
+                  Remove
+                </button></span
+              >
+                        </td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <!-- Editable table -->
+            </div>
+            <div class="col-md-7"> <img src="data:image/jpeg;base64,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" width="90%" height="95%"> </div>
+        </div>
+    </div>
+    <div class="footer d-flex flex-column mt-5">
+        <div class="row r4">
+            <div class="col-md-2 myt des"><a href="#">Description</a></div>
+
+        </div>
+    </div>
+</div>

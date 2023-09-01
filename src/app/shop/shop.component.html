@@ -8,6 +8,9 @@
       <button type="button" class="btn btn-danger" (click)="filterByName()">
         <i class="fas fa-search"></i>
       </button>
+      <span class="col-md-1"></span>
+      <button  type="button" class="btn btn-primary">
+        Create Shop </button>
     </div>
   </div>
 
@@ -49,6 +52,9 @@
     <th scope="col">Phone</th>
     <th scope="col">Address</th>
     <th scope="col">Owner</th>
+    <th class="col-1">Update Shop</th>
+    <th class="col-1">Delete Shop</th>
+    <th class="col-1">Details</th>
 
   </tr>
   </thead>
@@ -57,15 +63,21 @@
     <td class="table-danger">
       <div class="d-flex justify-content-between align-items-center">
         <span>{{ shop.name }}</span>
-        <button (click)="setSelectShop(shop)" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdropUpdate">
-          Update Shop
-        </button>
+
       </div>
     </td>
     <td class="table-success">{{ shop.phone }}</td>
     <td class="table-info">{{ shop.address }}</td>
     <td class="table-warning">{{ shop.owner }}</td>
-
+<td><button (click)="setSelectShop(shop)" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdropUpdate">
+    Update </button>
+</td>
+    <td><button  type="button" class="btn btn-danger" >
+      Delete </button>
+    </td>
+    <td><button  type="button" class="btn btn-info" >
+      Details </button>
+    </td>
   </tr>
   </tbody>
 

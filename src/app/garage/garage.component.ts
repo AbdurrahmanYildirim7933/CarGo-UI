@@ -3,10 +3,12 @@ import {Garage} from "./garage";
 import {GarageService} from "./garage.service";
 import {CookieService} from "ngx-cookie-service";
 import {Router} from "@angular/router";
-import {Car} from "./car";
+import {Car} from "../car-details/car";
 import {compare} from "fast-json-patch/commonjs/duplex";
 import {BehaviorSubject, Observable} from "rxjs";
 import * as jsonpatch from 'fast-json-patch';
+import {ToastrService} from "ngx-toastr";
+import {CarService} from "../car-details/car.service";
 
 export class Pager {
   pageList: Array<number> = [];
@@ -24,7 +26,7 @@ export class GarageComponent implements OnInit,OnDestroy {
 
 
   status: string;
-    constructor(protected garageService: GarageService, private router: Router, private changeDetectorRef: ChangeDetectorRef) {
+    constructor(protected garageService: GarageService, private carService:CarService, private toaster: ToastrService) {
   }
 
 
@@ -40,13 +42,16 @@ export class GarageComponent implements OnInit,OnDestroy {
   cars: Car[] = [];
   searchGarage: Garage = new Garage();
   observer:any;
-  totalElements:number=0;
+  pageItems:number=0;
+  totalPages:number=0;
+  totalItems:number=0;
+  searchGarageId: string = "";
 
-  page: number = 0;
+  page: number = 1;
   size: number = 10;
 
   setPage(state: string) {
-    if (state == "negative" && !(this.page<1)) {
+    if (state == "negative" && !(this.page<2)) {
       this.page = this.page - 1;
     }
     if (state == "positive") {
@@ -78,6 +83,7 @@ export class GarageComponent implements OnInit,OnDestroy {
   ngOnInit(): void {
     //this.sortByName();
     this.filterByName();
+
   }
 
   getPager(totalItem: number, pageSize: number = 3, currentPage: number = 1): Pager {
@@ -106,15 +112,6 @@ export class GarageComponent implements OnInit,OnDestroy {
         }
       ));
   }
-
-
-  upDGarage(selectedGarage:Garage){
-    /*güncellenmiş obje this.selectedGarage*/
-    /*orjinal object obje this.selectedGarage.id  let originalGarage= */
-      /*const patch = compare(this.selectedGarage, this.originalGarage);*/
-  }
-
-
 
   updateGarage(id: number) {
    let _temp=new Garage()
@@ -149,18 +146,6 @@ export class GarageComponent implements OnInit,OnDestroy {
     return newPatch;
   }
 
-    /*patchFix(patch:any){
-        let newPatch: { op: string; path: string; value: any; }[]= [];
-        let name:boolean=true,
-        let editor :boolean;
-    for(let i=0; i<patch.length;i++){
-    if(patch[i] == name){
-        newPatch.push({op:'replace',path:'name',value : patch.name})
-    }
-  return newPatch;
-}
-        return newPatch;
-    }*/
   ngOnDestroy(): void {
 
   }
@@ -199,7 +184,7 @@ export class GarageComponent implements OnInit,OnDestroy {
 
 
   getCars(garage:Garage) {
-    this.garageService.getCars(garage,this.page, this.size).subscribe(
+    this.carService.getCars(garage,this.page, this.size).subscribe(
       response => {
         this.cars = response;
         console.log('My Garage:', this.myGarage);
@@ -207,11 +192,30 @@ export class GarageComponent implements OnInit,OnDestroy {
   }
 
   filterByName() {
-    this.garageService.filterByName(this.searchGarage, this.page, this.size).subscribe(res => {
-      this.myGarage = res;
-    })
+    this.myGarage = new Array();
+    this.searchGarage.id = Number(this.searchGarageId);
+    if(this.searchGarage.id==null){
+      this.toaster.warning("Enter a number for id")
+    }
+    this.garageService.filterByName(this.searchGarage, this.page-1, this.size).subscribe(
+      (response:any) => {
+       response["garages"].forEach((g: Garage) => {
+          let _garage = new Garage();
+          _garage.bindObject(g);
+          this.myGarage.push(_garage)
+        }
+        );
+        this.totalItems = response["count"];
+        this.totalPages = response["pages"];
+        this.pageItems = response["garages"].length;
+        console.log('My Garage:', this.myGarage);
+      },error => {
+        console.log(error)
+      })
+
   }
 
   protected readonly close = close;
   protected readonly window = window;
+
 }

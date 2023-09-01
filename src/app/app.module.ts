@@ -16,6 +16,8 @@ import { FooterComponent } from './footer/footer.component';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {ShopComponent} from "./shop/shop.component";
 import {MatPaginatorModule} from "@angular/material/paginator";
+import { GarageDetailsComponent } from './garage-details/garage-details.component';
+import { CarDetailsComponent } from './car-details/car-details.component';
 
 
 @NgModule({
@@ -30,6 +32,8 @@ import {MatPaginatorModule} from "@angular/material/paginator";
     ProfileComponent,
     FooterComponent,
     ShopComponent,
+    GarageDetailsComponent,
+    CarDetailsComponent,
      ],
   imports: [
     BrowserModule,

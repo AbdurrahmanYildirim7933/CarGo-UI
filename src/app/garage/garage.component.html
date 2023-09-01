@@ -1,20 +1,18 @@
 <section>
-<mat-toolbar color="primary"> List Of My Garages
+<mat-toolbar color="primary">MY ALL GARAGES
   <div class="d-flex justify-content-end mt-3">
-
     <div class="container">
       <div class="d-flex justify-content-between align-items-center mb-3">
-        <div class="form-outline flex-grow-1 me-2">
-          <input type="text" name="search" [(ngModel)]="searchGarage.name" (keyup.enter)="filterByName()" class="form-control" placeholder="Search by name" />
-        </div>
-        <button type="button" class="btn btn-danger" (click)="filterByName()">
-          <i class="fas fa-search"></i>
-        </button>
       </div>
     </div>
-
   </div>
-  <span class="col-md-6"></span>
+  <div class="d-flex justify-content-end mt-3">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+      </div>
+    </div>
+  </div>
+  <span class="col-md-8"></span>
   <button mat-button  type="button" class="btn btn-dark btn-outline-success" data-bs-toggle="modal"
           data-bs-target="#staticBackdropCreate">
     Create New Garage </button>
@@ -41,13 +39,11 @@
   <div class="modal fade"   id="staticBackdropDetail" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen ">
       <div class="modal-content"*ngIf="selectedGarage">
-        <div class="modal-header">
-          <h1 class="modal-title " id="staticBackdropDetailLabel">{{selectedGarage.name}}</h1>
+        <div class="modal-header bg-secondary" >
+          <h1 class="modal-title text-center w-100 text-white" id="staticBackdropDetailLabel">Garage name : {{selectedGarage.name}}</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body" >
-
-
           <section class="articles" >
             <article *ngFor="let car of cars">
               <div class="article-wrapper" >
@@ -69,29 +65,6 @@
               </div>
             </article>
           </section>
-          <section class="articles" >
-            <article *ngFor="let car of cars">
-              <div class="article-wrapper" >
-                <figure>
-                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI-TcqJ7O8n3PsxcdgQBZ-DyAAApNLeuQJNw&usqp=CAU" alt="" />
-                </figure>
-                <div class="article-body">
-                  <h2>{{car.brand.name}} {{car.model.name}}</h2>
-                  <p>Year: {{car.year}}</p>
-                  <p>License Plate: {{car.licensePlate}}</p>
-                  <p>Year{{car.year}}</p>
-                  <a href="#" class="read-more">
-                    Details <span class="sr-only">about this is some title</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </article>
-          </section>
-
-
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -135,9 +108,18 @@
   <table class="table table-striped">
     <thead>
     <tr>
-      <th scope="col" >Id</th>
-      <th scope="col" ><i (click)="sortByName()" class="fas fa-sort"></i>Name</th>
-      <th scope="col">Details</th>
+      <th class="col-1" scope="col" >Garage Id
+        <div class="form-outline flex-grow-1 me-2">
+          <input type="text" name="search" [(ngModel)]="searchGarageId" (keyup.enter)="filterByName()" class="form-control" placeholder="By id" />
+        </div>
+      </th>
+      <th class="col-2"   scope="col" ><i (click)="sortByName()" class="fas fa-sort"></i>Garage Name
+        <div class="form-outline flex-grow-1 me-1">
+          <input type="text" name="search" [(ngModel)]="searchGarage.name" (keyup.enter)="filterByName()" class="form-control" placeholder="Search by name" />
+        </div>
+      </th>
+      <th class="col-1"><button type="button" class="btn btn-danger" (click)="filterByName()"><i class="fas fa-search"></i></button></th>
+      <th class="col-2" scope="col">Details</th>
       <th scope="col">Update</th>
       <th scope="col">Delete</th>
     </tr>
@@ -146,9 +128,10 @@
     <tr *ngFor="let garage of myGarage">
       <td>{{garage.id}}</td>
       <td>{{garage.name}}</td>
-      <td><button class="btn btn-outline-primary" data-bs-toggle="modal"
-                  data-bs-target="#staticBackdropDetail" (click)="getGarage(garage.id)">Cars in the garage</button>
+      <td></td>
+      <td><button class="btn btn-outline-primary" routerLink="/garage/{{garage.id}}">Cars in the garage</button>
       </td>
+
       <td><button class="btn btn-outline-success " data-bs-toggle="modal"
                   data-bs-target="#staticBackdropUpdate" (click)="getGarage(garage.id)" >Update</button></td>
       <td><button class="btn btn-outline-danger" data-bs-toggle="modal"
@@ -165,6 +148,17 @@
       <li class="page-item">
         <a (click)="setPage('positive')" class="page-link">Next</a>
       </li>
+      <li class="page-item">
+        <a class="page-link">Total Pages : {{totalPages}}</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link">Total Garages : {{totalItems}}</a>
+      </li>
+      <span class="col-md-5"> </span>
+        <li class="page-item">
+        <a class="page-link">Garages on this page  : {{pageItems}}</a>
+      </li>
+
     </ul>
   </nav>
 </section>
