@@ -8,6 +8,7 @@ export class Brand{
     name:string;
 
     bindObject(obj:Brand){
+
         if(obj.id){
             this.id=obj.id;
         }

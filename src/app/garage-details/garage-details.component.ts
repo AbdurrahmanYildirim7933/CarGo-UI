@@ -24,11 +24,12 @@ export class GarageDetailsComponent implements OnInit {
   cars:Car[]=[];
   myCars:Car[]=[];
   searchCar: Car = new Car();
-  createdCar: Car = new Car();
+  createdCar : Car = new Car();
   brands : Brand[] = [];
   models : Model[] = [];
+  createCarModel : Model = new Model();
   selectedBrand: Brand = new Brand();
-
+  selectedModel:Model = new Model();
   constructor(protected garageService: GarageService,  private route:ActivatedRoute,private toaster:ToastrService,private carService:CarService) {
   }
 
@@ -60,6 +61,8 @@ export class GarageDetailsComponent implements OnInit {
         this.garage.id =+this.route.snapshot.paramMap.get('id')!;
     })
     this.getBrands();
+    console.log("Secilen car name"+this.selectedBrand.name)
+    console.log("secilen car ID "+this.selectedBrand.id)
   }
 
     filterByName() {
@@ -84,6 +87,7 @@ export class GarageDetailsComponent implements OnInit {
 
     createCar(){
       console.log(this.garage.id)
+        this.createdCar.year = Number(this.createdCar.year);
       this.carService.createCar(this.garage.id,this.createdCar).subscribe
       ((res: any) => {
           console.log("Araba başarıyla kaydedildi.");
@@ -99,6 +103,17 @@ status : string = "";
     this.carService.deleteCar(id).subscribe(() => this.status = 'Delete successful')
     window.location.reload();
   }
+
+  getBrand(id:number):Brand{
+    this.carService.getBrand(id).subscribe(
+      response => {
+        this.selectedBrand.bindObject(response);
+        console.log('My Car:', this.selectedBrand);
+      });
+    return this.selectedBrand;
+
+  }
+
 
   getBrands() {
     this.brands = new Array();
@@ -117,16 +132,23 @@ status : string = "";
 
   }
 
-  selectChangeHandler (event: any) {
-    this.selectedBrand = event.target.value.name;
+  onChange() {
+      //console.log("Brand :"+JSON.parse(JSON.stringify()))
+    //this.createdCar.model.bindObject({JSON.parse(newValue.target.value)});
+    this.getModels(this.createdCar.brand.id);
   }
 
+  getModel(id:number):Model{
+    this.carService.getModel(id).subscribe(
+      response => {
+        this.selectedModel.bindObject(response);
+        console.log('My Car:', this.selectedModel);
+      });
+    return this.selectedModel;
 
-  onChange(newValue: any) {
-    console.log(newValue);
-    this.selectedBrand = newValue;
   }
-  getModels(id:number) {
+  getModels(id:any) {
+
     this.models = new Array();
     this.carService.getModels(id).subscribe(
       response => {

@@ -24,10 +24,12 @@ export class Car{
     }
 
     if(obj.brand){
-      this.brand=obj.brand;
+      this.brand= new Brand();
+      this.brand.bindObject(obj.brand);
     }
     if(obj.model){
-      this.model=obj.model;
+      this.model = new Model();
+      this.model.bindObject(obj.model);
     }
 
   }

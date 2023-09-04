@@ -58,13 +58,24 @@ export class CarService {
     return headers;
   }
 
+  getBrand(id:number):Observable<Brand>{
+    const headers = this.profileService.createHeaders();
+    return this.httpClient.get<Brand>(`${this.apiUrl}/api/v1/car/get-brand/${id}`,{headers});
+  }
+
   getBrands():Observable<Brand[]>{
     let url = `http://localhost:8080/api/v1/car/brands`;
     const headers = this.profileService.createHeaders();
     return this.httpClient.get<Brand[]>(url,{headers});
   }
 
+    getModel(id:number):Observable<Model>{
+        const headers = this.profileService.createHeaders();
+        return this.httpClient.get<Model>(`${this.apiUrl}/api/v1/car/get-model/${id}`,{headers});
+    }
+
   getModels(brandId:number):Observable<Model[]>{
+
     let url = `http://localhost:8080/api/v1/car/${brandId}/models`;
     const headers = this.profileService.createHeaders();
     return this.httpClient.get<Model[]>(url,{headers});
