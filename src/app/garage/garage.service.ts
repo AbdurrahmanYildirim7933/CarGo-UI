@@ -47,13 +47,11 @@ export class GarageService {
     return this.httpClient.post(`${this.apiUrl}/api/v1/garage/create-garage` ,garage ,{headers});
 
   }
-
   updateGarage (id:number,operations:Operation[]):Observable<Object>{
     const headers = this.createPatchHeaders();
     return this.httpClient.patch(`${this.apiUrl}/api/v1/garage/update-garage/${id}` ,operations ,{headers});
 
   }
-
   sortByName() {
     const headers = this.profileService.createHeaders();
     console.log(headers)

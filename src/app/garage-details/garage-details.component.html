@@ -9,17 +9,20 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <select (change)="onChange()" [(ngModel)]="createdCar.brand"
+          <h4>Select Brand</h4>
+          <select  (change)="onChange()" [(ngModel)]="createdCar.brand"
                    class="form-select form-control-lg m-2" aria-label="Default select example">
-            <option [value]="0">Select Brand</option>
             <option *ngFor="let brand of brands" [ngValue]="brand" >{{brand.name}}</option>
           </select>
+          <h4>Select Model</h4>
           <select [(ngModel)]="createdCar.model"  class="form-select form-control-lg m-2" aria-label="Default select example">
-            <option selected>Select Model</option>
+            <option *ngIf="!createdCar.brand" selected>Select Brand for choose a model</option>
             <option  *ngFor="let model of models"  [ngValue]="model">{{model.name}}  </option>
           </select>
+
           <input class="form-control form-control-lg m-2" placeholder="Year"  [(ngModel)]="createdCar.year">
           <input class="form-control form-control-lg m-2" placeholder="LicensePlate"  [(ngModel)]="createdCar.licensePlate">
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -44,7 +47,7 @@
           <div class="card-image">
             <span class="card-notify-badge">{{car.licensePlate}}</span>
             <span class="card-notify-year">{{car.year}}</span>
-            <img class="img-fluid" src="https://imageonthefly.autodatadirect.com/images/?USER=eDealer&PW=edealer872&IMG=USC80HOC011A021001.jpg&width=440&height=262" alt="Alternate Text" />
+            <img class="img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdaEiWmzkej9XgCLtn2eDbOZ9oyb1j8MEAVg&usqp=CAU" alt="Alternate Text" />
           </div>
           <div class="card-body text-center">
             <div class="ad-title m-auto">

@@ -8,6 +8,7 @@ import {Operation} from "fast-json-patch";
 import {CookieService} from "ngx-cookie-service";
 import {Brand} from "./brand";
 import {Model} from "./model";
+import {CarImage} from "./car-image";
 
 @Injectable({
   providedIn: 'root'
@@ -80,5 +81,18 @@ export class CarService {
     const headers = this.profileService.createHeaders();
     return this.httpClient.get<Model[]>(url,{headers});
   }
+
+  getImages(id:number):Observable<CarImage[]>{
+    let url = `http://localhost:8080/api/v1/car/get-images/${id}`;
+    const headers = this.profileService.createHeaders();
+    return this.httpClient.get<CarImage[]>(url,{headers});
+  }
+
+  uploadImages(images: CarImage[],carId:number):Observable<Object>{
+    const headers = this.profileService.createHeaders();
+    console.log(images);
+    return this.httpClient.post(`${this.apiUrl}/api/v1/car/create-images/${carId}` ,images ,{headers});
+  }
+
 
 }

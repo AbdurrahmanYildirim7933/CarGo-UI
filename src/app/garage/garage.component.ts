@@ -51,10 +51,10 @@ export class GarageComponent implements OnInit,OnDestroy {
   size: number = 10;
 
   setPage(state: string) {
-    if (state == "negative" && !(this.page<2)) {
+    if (state == "negative" && !(this.page<2 )) {
       this.page = this.page - 1;
     }
-    if (state == "positive") {
+    if (state == "positive" && this.pageItems != null && this.page<this.totalPages) {
       this.page = this.page + 1;
     }
     this.filterByName();

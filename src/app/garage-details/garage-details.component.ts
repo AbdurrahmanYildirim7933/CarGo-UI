@@ -43,9 +43,10 @@ export class GarageDetailsComponent implements OnInit {
         if (state == "negative" && !(this.page<2)) {
             this.page = this.page - 1;
         }
-        if (state == "positive" && this.pageItems != null) {
+        if (state == "positive" && this.pageItems != null && this.page<this.totalPages) {
             this.page = this.page + 1;
-        }
+        } // @ts-ignore
+
         this.filterByName();
     }
 
@@ -167,4 +168,6 @@ status : string = "";
 
 
     protected readonly isEmpty = isEmpty;
+
+
 }
