@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {GarageService} from "../garage/garage.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Garage} from "../garage/garage";
 import {Car} from "./car";
 import {CarService} from "./car.service";
@@ -18,18 +18,20 @@ import {HttpEventType, HttpResponse} from "@angular/common/http";
 })
 export class CarDetailsComponent implements OnInit{
 
-  constructor(protected garageService: GarageService,private carService:CarService,  private route:ActivatedRoute) {
+  constructor(protected garageService: GarageService,private carService:CarService,  private route:ActivatedRoute,private router:Router) {
   }
-
+garageId:number = 0;
 car:Car = new Car();
   oldCar : Car = new Car();
-  updatedCar: Car = new Car();
   models : Model[]= [];
   brands : Brand[]= [];
   images:CarImage[] =  [];
   selectedBrand : Brand = new Brand();
   selectedModel : Model = new Model();
+  selectedImages : CarImage[]= [];
   imageArray : CarImage[] = [];
+  msg: string = ''; // Angular 13
+  clss: string = ''; // Angular 13
   observer:any;
   getCar(): Car {
     const carId : number = +this.route.snapshot.paramMap.get('cid')!;
@@ -49,6 +51,7 @@ car:Car = new Car();
     this.route.paramMap.subscribe(()=>{
       this.getCar();
       this.getBrands();
+      this.garageId =+this.route.snapshot.paramMap.get('id')!
     })
   }
 
@@ -61,6 +64,7 @@ car:Car = new Car();
         let patch = this.patchFix(jsonpatch.generate(this.observer))
         this.carService.updateCar(id, patch).subscribe
         ((res: any) => {
+              this.car.bindObject(res);
                 console.log("Garaj başarıyla güncellendi.");
                 //window.location.reload();
             },
@@ -161,10 +165,13 @@ car:Car = new Car();
 
     }
 
-  selectedFiles?: any[];
+  selectedFiles: any[];
   previews: string[] = [];
-
+  progressInfos: any[] = [];
+  message: string[] = [];
   selectFiles(event: any): void {
+    this.message = [];
+    this.progressInfos = [];
     this.selectedFiles = new Array();
     this.selectedFiles = event.target.files;
     this.previews = [];
@@ -180,56 +187,105 @@ car:Car = new Car();
     }
   }
 
+
+  deleteCar(){
+    this.carService.deleteCar(this.car.id).subscribe(res=> {
+    })
+  }
+
   send() {
-    // @ts-ignore
-    for (let file of this.selectedFiles) {
-      let name = file.name.split('.')
-      let type = file.name.split('.').pop().toLowerCase();
-      let reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        let image = reader.result as any;
-        let _tempImage:CarImage = new CarImage();
-        _tempImage.bindObject2(name,image,type);
-        this.imageArray.push(_tempImage);
-      };
       this.carService.uploadImages(this.imageArray, this.car.id).subscribe
       ((res: any) => {
-          console.log("Foto updated.");
-        },
-        (error => {
-            console.log("Üzgünüz,foto not ypdate.");
+        let msg = 'Uploaded the file successfully'
+        this.message.push(msg);
+        this.imageArray = [];
+        res.forEach((i: CarImage) => {
+            let _carimg = new CarImage();
+            _carimg.bindObject(i);
+            this.images.push(_carimg)
+        });
+          this.getImages(this.car.id);
+            if (res.type === HttpEventType.UploadProgress) {
+              console.log("Yükleniyor")
+              // this.progressInfos[idx].value = Math.round((100 * res.loaded) / res.total);
+              //const msg = 'Uploaded the file successfully: ' + file.name;
+
+              //this.message.push(msg);
+            } else if (res instanceof HttpResponse) {
+              console.log("Yüklendi")
+              //const msg = 'Uploaded the file successfully: ' + file.name;
+              //this.message.push(msg);
+            }
+          },
+          (err: any) => {
+            //this.progressInfos[idx].value = 0;
+            // const msg = 'Could not upload the file: ' + file.name;
+            //this.message.push(msg);
           }
-        ));
+        );
+
+
+      }
+
+  uploadFiles(){
+
+    for (let i = 0; i < this.selectedFiles.length; i++) {
+      this.readFile(i).then(res=>{
+        if (this.selectedFiles.length -1 == i){
+          this.send();
+        }
+      });
     }
   }
 
-  /*uploadImages(idx: number, file: File): void {
-    this.progressInfos[idx] = { value: 0, fileName: file.name };
+  readFile(i:number){
+    return new Promise((res,reject)=>{
+      let name = this.selectedFiles[i].name
+      let type = this.selectedFiles[i].name.split('.').pop().toLowerCase();
+      let reader = new FileReader();
 
-    if (file) {
-      this.carService.uploadImages(file,this.car.id).subscribe(
-        (event: any) => {
-          if (event.type === HttpEventType.UploadProgress) {
-            this.progressInfos[idx].value = Math.round(
-              (100 * event.loaded) / event.total
-            );
-          } else if (event instanceof HttpResponse) {
-            const msg = 'Uploaded the file successfully: ' + file.name;
-            this.message.push(msg);
-            this.imageInfos = this.images;
+      reader.readAsDataURL(this.selectedFiles[i]);
+
+      reader.onload = () => {
+        let image = reader.result as any;
+        let _tempImage: CarImage = new CarImage();
+        _tempImage.bindObject2(name, image, type);
+        this.imageArray.push(_tempImage);
+
+        this.progressInfos[i] = {value: 0, fileName: this.selectedFiles[i].name};
+        res(true);
+      };
+    });
+  }
+
+  checkAllCheckBox(ev: any) { // Angular 13
+    this.images.forEach(i => i.checked = ev.checked)
+  }
+
+  isAllCheckBoxChecked() {
+    return this.images.every(i => i.checked);
+  }
+
+  deleteImages(): void {
+    const selectedImages = this.images.filter(image => image.checked).map(i => i.id);
+    console.log (selectedImages);
+
+    if(selectedImages && selectedImages.length > 0) {
+      this.carService.deleteImages(selectedImages as number[])
+        .subscribe((res:any) => {
+            this.clss = 'grn';
+            this.msg = 'Products successfully deleted';
+          }, err => {
+            this.clss = 'rd';
+            this.msg = 'Something went wrong during deleting products';
+          this.getImages(this.car.id)
           }
-        },
-        (err: any) => {
-          this.progressInfos[idx].value = 0;
-          const msg = 'Could not upload the file: ' + file.name;
-          this.message.push(msg);
-        }
-      );
+        );
+    } else {
+      this.clss = 'rd';
+      this.msg = 'You must select at least one product';
     }
-  }*/
-
-
+  }
 
 
 }

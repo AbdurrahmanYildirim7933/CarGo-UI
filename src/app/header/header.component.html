@@ -10,7 +10,6 @@
         <li  *ngIf="!userIsAuthenticated" class="nav-item"><a class="nav-link" routerLink="/login">Login</a></li>
         <li  *ngIf="!userIsAuthenticated" class="nav-item"><a class="nav-link" routerLink="/signup">Signup</a></li>
         <li *ngIf="userIsAuthenticated" class="nav-item"><a class="nav-link" routerLink="/garage">My Garages</a></li>
-        <li  *ngIf="userIsAuthenticated" class="nav-item"><a class="nav-link" routerLink="/shop"(click)="goToShop()">Shop</a></li>
         <li  *ngIf="userIsAuthenticated" class="nav-item"><a class="nav-link" routerLink="/login"(click)="logout()">Logout</a></li>
       </ul>
     </div>

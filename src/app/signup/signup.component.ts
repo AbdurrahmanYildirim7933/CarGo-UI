@@ -44,8 +44,7 @@ export class SignupComponent implements OnInit{
   signUp(){
 
     if (this.user.validate() != ''){
-      this.toastrService.error("Hata",this.user.validate())
- debugger
+      this.toastrService.error("Hata:",this.user.validate())
     }else {
       this.signupService.registerUser(this.user).subscribe(
         res => {

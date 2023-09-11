@@ -94,5 +94,9 @@ export class CarService {
     return this.httpClient.post(`${this.apiUrl}/api/v1/car/create-images/${carId}` ,images ,{headers});
   }
 
-
+  deleteImages(selectedImages:any):Observable<Object>{
+    const headers = this.profileService.createHeaders();
+    console.log(selectedImages);
+    return this.httpClient.delete(`${this.apiUrl}/api/v1/car/delete-images/${selectedImages}` ,{headers});
+  }
 }

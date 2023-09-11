@@ -1,5 +1,6 @@
 import {UserDTO} from "../login/UserDTO";
 import {Car} from "../car-details/car";
+import {isString} from "ngx-bootstrap/chronos/utils/type-checks";
 
 export class Garage {
 
@@ -9,7 +10,7 @@ export class Garage {
   cars : Car[];
 
   bindObject(obj:Garage){
-    if(obj.id){
+    if(obj.id ){
       this.id=obj.id;
     }
 
@@ -32,6 +33,7 @@ export class Garage {
     }
 
   }
+
 
 }
 

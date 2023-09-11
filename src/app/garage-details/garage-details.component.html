@@ -47,14 +47,26 @@
           <div class="card-image">
             <span class="card-notify-badge">{{car.licensePlate}}</span>
             <span class="card-notify-year">{{car.year}}</span>
-            <img class="img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdaEiWmzkej9XgCLtn2eDbOZ9oyb1j8MEAVg&usqp=CAU" alt="Alternate Text" />
+
+            <div *ngIf="imagesMap.get(car.id)!=null && imagesMap.get(car.id)!=[]" id="carouselExampleDark" class="carousel carousel-dark slide col-xxl-12" data-bs-ride="carousel" width="100%" height="100%">
+              <div class="carousel-inner myt des" >
+                <div *ngFor="let image of imagesMap.get(car.id)" class="carousel-item active" data-bs-interval="10000">
+                  <img src="{{image.filebase64}}" class="d-block w-100" alt="...">
+                </div>
+              </div>
+            </div>
+            <img *ngIf="imagesMap.get(car.id)==null || imagesMap.get(car.id)==[]"
+                 class="img-fluid"
+                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdaEiWmzkej9XgCLtn2eDbOZ9oyb1j8MEAVg&usqp=CAU"
+                 alt="Alternate Text" />
           </div>
           <div class="card-body text-center">
             <div class="ad-title m-auto">
               <h5>{{car.brand.name}} {{car.model.name}}</h5>
             </div>
-            <a routerLink="/garage/{{garage.id}}/car/{{car.id}}" class="ad-btn">View/Edit</a>
-            <a class="ad-btn bg-danger" (click)="deleteCar(car.id)">Delete</a>
+            <button routerLink="/garage/{{garage.id}}/car/{{car.id}}" class="ad-btn">View/Edit</button>
+            <button class="ad-btn bg-danger" (click)="deleteCar(car.id)">Delete</button>
+
           </div>
         </div>
       </div>

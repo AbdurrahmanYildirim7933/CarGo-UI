@@ -5,6 +5,7 @@ export class CarImage {
   name:string;
   filebase64:any;
   type:string;
+  checked: boolean;
 
   bindObject(obj:CarImage) {
       if (obj.id) {
@@ -19,6 +20,9 @@ export class CarImage {
       if(obj.type){
         this.type = obj.type;
       }
+    if(obj.checked){
+      this.checked = obj.checked;
+    }
   }
 
   bindObject2(name:any,filebase64:any,type:any) {

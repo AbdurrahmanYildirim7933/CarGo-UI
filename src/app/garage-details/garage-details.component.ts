@@ -9,6 +9,7 @@ import {ToastrService} from "ngx-toastr";
 import {CarService} from "../car-details/car.service";
 import {Brand} from "../car-details/brand";
 import {Model} from "../car-details/model";
+import {CarImage} from "../car-details/car-image";
 
 
 
@@ -30,6 +31,9 @@ export class GarageDetailsComponent implements OnInit {
   createCarModel : Model = new Model();
   selectedBrand: Brand = new Brand();
   selectedModel:Model = new Model();
+  imagesMap: Map<number,CarImage[]> = new Map<number, CarImage[]>();
+  imagesArray : CarImage[]=[];
+
   constructor(protected garageService: GarageService,  private route:ActivatedRoute,private toaster:ToastrService,private carService:CarService) {
   }
 
@@ -64,6 +68,8 @@ export class GarageDetailsComponent implements OnInit {
     this.getBrands();
     console.log("Secilen car name"+this.selectedBrand.name)
     console.log("secilen car ID "+this.selectedBrand.id)
+    console.log(this.myCars)
+
   }
 
     filterByName() {
@@ -80,6 +86,8 @@ export class GarageDetailsComponent implements OnInit {
                 this.totalItems = response["count"];
                 this.totalPages = response["pages"];
                 this.pageItems = response["cars"].length;
+              this.getImages();
+              console.log(this.imagesMap);
             },error => {
                 console.log(error)
             })
@@ -92,6 +100,7 @@ export class GarageDetailsComponent implements OnInit {
       this.carService.createCar(this.garage.id,this.createdCar).subscribe
       ((res: any) => {
           console.log("Araba başarıyla kaydedildi.");
+          this.filterByName()
         },
         (error => {
             console.log("Üzgünüz, araba kaydedilemedi.");
@@ -99,10 +108,15 @@ export class GarageDetailsComponent implements OnInit {
         ));
     }
 
-status : string = "";
+
   deleteCar(id: number) {
-    this.carService.deleteCar(id).subscribe(() => this.status = 'Delete successful')
-    window.location.reload();
+    this.carService.deleteCar(id).subscribe((res: any) => {
+        console.log("Araba başarıyla silindi.");
+        this.filterByName()
+      },
+      (error => {
+        console.log("Üzgünüz, araba silinemedi.");
+      }));
   }
 
   getBrand(id:number):Brand{
@@ -163,6 +177,24 @@ status : string = "";
       },error => {
         console.log(error)
       })
+
+  }
+  getImages() {
+    this.imagesMap = new Map<number, CarImage[]>();
+    this.myCars.forEach((c:Car)=>{this.carService.getImages(c.id).subscribe(
+      response => {
+        response.forEach((i: CarImage) => {
+            let _image = new CarImage();
+            _image.bindObject(i);
+            this.imagesArray.push(_image);
+          }
+        );
+        this.imagesMap.set(c.id,this.imagesArray);
+        this.imagesArray = new Array();
+        console.log("Images"+this.imagesArray);
+      },error => {
+        console.log(error)
+      })} )
 
   }
 

@@ -1,41 +1,16 @@
 <div class="container py-4 my-4 mx-auto d-flex flex-column">
     <div class="header">
         <div class="row r1">
-
             <h1>Car ID : {{car.id}}</h1>
-
-        </div>
+          <button type="button" class="btn btn-danger" routerLink="/garage/{{garageId}}" (click)="deleteCar()">Delete Car</button>
     </div>
     <div class="container-body mt-4">
         <div class="row r3">
-            <div class="col-md-7 p-0 klo">
-                <div class="container-xl px-4 mt-4">
+            <div class="col-md-12 p-0 klo">
+                <div class="container-xxl px-4 mt-4">
                     <div class="row">
-                        <div class="col-xl-4">
-                            <!-- Profile picture card-->
-                            <div class="card mb-4 mb-xl-0">
-                                <div class="card-header">Add a new image</div>
-                                <div class="card-body text-center">
-                                    <!-- Profile picture image-->
-                                    <img class="img-account-profile rounded-circle mb-2" src="data:image/png;base64,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" alt="">
-                                    <!-- Profile picture help block-->
-                                  <div class="row">
-                                    <div class="col-8">
-                                      <label class="btn btn-default p-0">
-                                        <input type="file" accept="image/*" multiple (change)="selectFiles($event)" />
-                                      </label>
-                                    </div>
-                                  </div>
-                                    <button [disabled]="!selectedFiles"
-                                            (click)="send()" class="btn btn-outline-warning" type="button">Upload new image</button>
-                                  <div>
-                                    <img *ngFor='let preview of previews' [src]="preview" class="preview">
-                                  </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-8">
-                            <!-- Account details card-->
+                      <div class="col-xxl-8">
+                            <!-- Vehicle details card-->
                             <div class="card mb-4">
                                 <div class="card-header">Vehicle Details</div>
                                 <div class="card-body">
@@ -79,38 +54,122 @@
                                     </form>
                                 </div>
                             </div>
+                      </div>
+                      <div class="col-xxl-4">
+                        <!-- Images card-->
+                        <div class="card mb-4 mb-xl-0">
+                          <div class="card-header">Car images</div>
+                          <div class="card-body text-center">
+                            <!-- Car Add image-->
+                            <div id="carouselExampleDark" class="carousel carousel-dark slide col-xxl-12" data-bs-ride="carousel" width="100%" height="100%">
+                              <div class="carousel-inner myt des" >
+                                <div *ngFor="let image of images" class="carousel-item active" data-bs-interval="10000">
+                                  <img src="{{image.filebase64}}" class="d-block w-100" alt="...">
+                                  <h1 class="carousel-item-end text-warning">{{image.name}}</h1>
+                                </div>
+                              </div>
+                              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                              </button>
+                              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                              </button>
+                            </div>
+                            <button class="btn btn-outline-warning" type="button" data-bs-toggle="modal" data-bs-target=".bd-example-modal-xl">Update images</button>
+
+                          </div>
                         </div>
+                      </div>
+                      <div class="col-xxl-5">
+                        <!-- Images card-->
+                      </div>
                     </div>
                 </div>
-
-            </div>
-
-            <div id="carouselExampleDark" class="carousel carousel-dark slide col-lg-5" data-bs-ride="carousel" width="30%" height="35%">
-
-                <div class="carousel-inner">
-                    <div *ngFor="let image of images" class="carousel-item active" data-bs-interval="10000">
-                        <img src="{{image.filebase64}}" class="d-block w-100" alt="...">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h1 class="text-warning">{{image.name}}</h1>
-                        </div>
-                    </div>
-
-
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
             </div>
         </div>
     </div>
     <div class="footer d-flex flex-column mt-4">
         <div class="row r4">
-            <div class="col-md-2 myt des"><a href="#">Description</a></div>
+            <div class="col-md-2 myt des"><a>Vehicle damage record</a></div>
         </div>
     </div>
+</div>
+<div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title text-center text-warning">Add/Delete images or image</h1>
+        <button type="button" class="close" data-bs-dismiss="modal">×</button>
+
+      </div>
+      <div class="modal-body choice-modal">
+        <div class="container-fluid">
+          <div class="row inner-scroll myt des">
+            <div class="col-md-1">
+              <h3 class="text-secondary">Select all images
+                <input type="checkbox" (change)="checkAllCheckBox($event.target)" [checked]="isAllCheckBoxChecked()">
+              </h3>
+            </div>
+            <div class="col-md-3 "  *ngFor="let image of images;let i=index">
+              <div class="gallery-card">
+                <div class="gallery-card-body">
+                  <label class="block-check">
+                    <img (change)="checkAllCheckBox($event.target)" src="{{image.filebase64}}" class="img-responsive col-xl-9" />
+                    <input type="checkbox" value="{{image.id}}" [(ngModel)]="image.checked">
+                    <span class="checkmark"></span>
+                  </label>
+                  <div class="mycard-footer">
+                    <a class="card-link">{{image.name}}</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Add picture block-->
+          <div *ngFor="let progressInfo of progressInfos" class="mb-2">
+            <span>{{ progressInfo.fileName }}</span>
+            <div class="progress">
+              <div
+                class="progress-bar progress-bar-info progress-bar-striped"
+                role="progressbar"
+                attr.aria-valuenow="{{ progressInfo.value }}"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                [ngStyle]="{ width: progressInfo.value + '%' }"
+              >
+                {{ progressInfo.value }}%
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-8">
+              <label class="btn btn-default p-0">
+                <input type="file" accept="image/*" multiple (change)="selectFiles($event)" />
+              </label>
+            </div>
+          </div>
+          <button [disabled]="!selectedFiles"
+                  (click)="uploadFiles()" class="btn btn-outline-warning" type="button">Upload new image</button>
+          <div>
+            <h2 f *ngIf="selectedFiles">Images which u want to add :</h2>
+            <img *ngFor='let preview of previews' [src]="preview" class="preview col-xl-3">
+          </div>
+          <div *ngIf="message.length" class="alert alert-secondary my-3" role="alert">
+            <ul *ngFor="let msg of message; let i = index">
+              <li>{{ msg }}</li>
+            </ul>
+          </div>
+          <div *ngIf="msg" [ngClass]="clss">{{msg}}</div>
+          <!-- Add picture block ends-->
+          <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-danger" (click)="deleteImages()">Delete choosen images</button>
+              </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
 </div>

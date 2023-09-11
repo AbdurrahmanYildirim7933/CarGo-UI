@@ -97,15 +97,19 @@ export class GarageComponent implements OnInit,OnDestroy {
 
 
   deleteGarage(id: number) {
-    this.garageService.deleteGarage(id).subscribe(() => this.status = 'Delete successful')
-    window.location.reload();
+    this.garageService.deleteGarage(id).subscribe(
+      (res =>{
+        this.filterByName();
+      }));
+
   }
+
 
   createGarage() {
     this.garageService.createGarage(this.createdGarage).subscribe
     ((res: any) => {
         console.log("Garaj başarıyla kaydedildi.");
-        window.location.reload();
+        this.filterByName();
       },
       (error => {
           console.log("Üzgünüz, garaj kaydedilemedi.");
@@ -123,7 +127,7 @@ export class GarageComponent implements OnInit,OnDestroy {
     this.garageService.updateGarage(id, patch).subscribe
     ((res: any) => {
         console.log("Garaj başarıyla güncellendi.");
-        //window.location.reload();
+        this.filterByName();
       },
       (error => {
           console.log("Üzgünüz, garaj güncellenemedi.");
@@ -160,7 +164,7 @@ export class GarageComponent implements OnInit,OnDestroy {
           this.observer=jsonpatch.observe(this.selectedGarage);
         this.cars = this.selectedGarage.cars;
         console.log('My Garage:', this.myGarage);
-        this.getCars(this.selectedGarage);
+
       });
     return this.garage;
   }
@@ -183,33 +187,25 @@ export class GarageComponent implements OnInit,OnDestroy {
   }
 
 
-  getCars(garage:Garage) {
-    this.carService.getCars(garage,this.page, this.size).subscribe(
-      response => {
-        this.cars = response;
-        console.log('My Garage:', this.myGarage);
-      });
-  }
 
   filterByName() {
     this.myGarage = new Array();
-    this.searchGarage.id = Number(this.searchGarageId);
-    if(this.searchGarage.id==null){
-      this.toaster.warning("Enter a number for id")
-    }
-    this.garageService.filterByName(this.searchGarage, this.page-1, this.size).subscribe(
-      (response:any) => {
-       response["garages"].forEach((g: Garage) => {
-          let _garage = new Garage();
-          _garage.bindObject(g);
-          this.myGarage.push(_garage)
-        }
+    this.searchGarage.id = Number(this.searchGarageId)
+
+
+      this.garageService.filterByName(this.searchGarage, this.page - 1, this.size).subscribe(
+      (response: any) => {
+        response["garages"].forEach((g: Garage) => {
+            let _garage = new Garage();
+            _garage.bindObject(g);
+            this.myGarage.push(_garage)
+          }
         );
         this.totalItems = response["count"];
         this.totalPages = response["pages"];
         this.pageItems = response["garages"].length;
         console.log('My Garage:', this.myGarage);
-      },error => {
+      }, error => {
         console.log(error)
       })
 
