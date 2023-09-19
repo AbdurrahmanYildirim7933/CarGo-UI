@@ -12,9 +12,8 @@ import {Subscription} from "rxjs";
 })
 export class HeaderComponent implements OnInit,OnDestroy{
   myDetails: ProfileDetails =new ProfileDetails();
-  isAuthenticated:boolean = false;
   private authListenerSubs: Subscription;
-  public userIsAuthenticated = true;
+  public userIsAuthenticated:boolean = true;
 
 
 
@@ -25,14 +24,14 @@ constructor(private profileService: ProfileService,private loginService:LoginSer
 
   ngOnInit(): void {
     this.getProfileData();
-    this.authListenerSubs = this.loginService.getAuthStatusListener().subscribe(isAuthenticated=>{
+    this.authListenerSubs = this.loginService.getAuthStatusListener().subscribe((isAuthenticated:any)=>{
       this.userIsAuthenticated = isAuthenticated;
     });
+    this.loginService.getAuthStatusListener().subscribe(i=>console.log("Oturum : "+i));
+    console.log("Oturumum: "+this.userIsAuthenticated)
   }
 
   ngOnDestroy(){
-
-
     this.authListenerSubs.unsubscribe();
   }
 
@@ -40,7 +39,7 @@ constructor(private profileService: ProfileService,private loginService:LoginSer
   getProfileData(): void {
     this.profileService.profile().subscribe(
       (response: any) => {
-        this.myDetails = response;
+        this.myDetails.bindObject(response);
       },
       (error: any) => {
         console.error('Error retrieving profile data');

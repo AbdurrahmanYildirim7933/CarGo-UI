@@ -9,6 +9,10 @@ import {BehaviorSubject, Observable} from "rxjs";
 import * as jsonpatch from 'fast-json-patch';
 import {ToastrService} from "ngx-toastr";
 import {CarService} from "../car-details/car.service";
+import {Apollo} from "apollo-angular";
+import {CREATE_GARAGE} from "./mutations.graphql";
+import {HttpHeaders} from "@angular/common/http";
+
 
 export class Pager {
   pageList: Array<number> = [];
@@ -26,13 +30,14 @@ export class GarageComponent implements OnInit,OnDestroy {
 
 
   status: string;
-    constructor(protected garageService: GarageService, private carService:CarService, private toaster: ToastrService) {
+
+  constructor(private apollo: Apollo, protected garageService: GarageService, private carService: CarService, private toaster: ToastrService,
+  private cookieService:CookieService) {
   }
 
 
-
   selectedGarage: Garage;
-    oldselectedGarege:Garage;
+  oldselectedGarege: Garage;
   createdGarage: Garage = new Garage();
   myGarage: Garage[] = [];
   garage: Garage = new Garage();
@@ -41,29 +46,36 @@ export class GarageComponent implements OnInit,OnDestroy {
   pager: Pager;
   cars: Car[] = [];
   searchGarage: Garage = new Garage();
-  observer:any;
-  pageItems:number=0;
-  totalPages:number=0;
-  totalItems:number=0;
+  observer: any;
+  pageItems: number = 0;
+  totalPages: number = 0;
+  totalItems: number = 0;
   searchGarageId: string = "";
 
   page: number = 1;
   size: number = 10;
 
   setPage(state: string) {
-    if (state == "negative" && !(this.page<2 )) {
+    if (state == "negative" && !(this.page < 2) && this.page <= this.totalPages) {
       this.page = this.page - 1;
+
     }
-    if (state == "positive" && this.pageItems != null && this.page<this.totalPages) {
+    if (state == "positive" && this.pageItems != null && this.page <= this.totalPages) {
       this.page = this.page + 1;
+
     }
     this.filterByName();
   }
 
   goPage(page: number) {
-   this.page = page;
-   this.filterByName()
+    if (page > 0 && page <= this.totalPages) {
+      this.page = page;
+      this.filterByName()
+    } else {
+      this.toaster.warning("Please enter a number between 1-" + this.totalPages)
+    }
   }
+
 
   getGarages(): Garage[] {
 
@@ -83,6 +95,15 @@ export class GarageComponent implements OnInit,OnDestroy {
   ngOnInit(): void {
     //this.sortByName();
     this.filterByName();
+    /*this.apollo.watchQuery({
+      query : gql`
+      query sec{
+        garages{
+          id,
+          name,
+        }
+      }`
+    })*/
 
   }
 
@@ -98,7 +119,7 @@ export class GarageComponent implements OnInit,OnDestroy {
 
   deleteGarage(id: number) {
     this.garageService.deleteGarage(id).subscribe(
-      (res =>{
+      (res => {
         this.filterByName();
       }));
 
@@ -117,6 +138,29 @@ export class GarageComponent implements OnInit,OnDestroy {
       ));
   }
 
+  create(): void {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.cookieService.get("MyCookie")}`, // Token burada ekleniyor
+    });
+    this.apollo.mutate({
+      mutation: CREATE_GARAGE,
+      variables: {
+        dto: {
+          name: this.createdGarage.name
+        }
+      },
+      context: {
+        headers, // Headers'i isteğe ekleyin
+      },
+    }).subscribe((res:any) => {console.log("Succesfull")
+      this.filterByName();
+      alert("Garaj eklendi, garaj bilgileri:" + res);
+
+  },
+        (err: any) =>{
+    alert(err);
+    })
+  }
   updateGarage(id: number) {
    let _temp=new Garage()
       _temp.bindObject(this.selectedGarage);

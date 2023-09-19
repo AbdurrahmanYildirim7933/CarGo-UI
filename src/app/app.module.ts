@@ -18,7 +18,8 @@ import {ShopComponent} from "./shop/shop.component";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import { GarageDetailsComponent } from './garage-details/garage-details.component';
 import { CarDetailsComponent } from './car-details/car-details.component';
-
+import { PostsComponent } from './posts/posts.component';
+import {GraphQLModule} from "./graphql.module";
 
 @NgModule({
   declarations: [
@@ -34,8 +35,10 @@ import { CarDetailsComponent } from './car-details/car-details.component';
     ShopComponent,
     GarageDetailsComponent,
     CarDetailsComponent,
+    PostsComponent,
      ],
   imports: [
+    GraphQLModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
@@ -44,11 +47,13 @@ import { CarDetailsComponent } from './car-details/car-details.component';
     ToastrModule.forRoot(),
     ReactiveFormsModule,
     MatToolbarModule,
-    MatPaginatorModule
+    MatPaginatorModule,
   ],
 
-  providers: [  provideAnimations(), // required animations providers
-    provideToastr(), ],
+  providers: [
+    provideAnimations(), // required animations providers
+    provideToastr(),
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

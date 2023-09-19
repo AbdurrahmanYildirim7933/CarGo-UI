@@ -26,11 +26,11 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <input class="form-control form-control-lg"  placeholder="Name"  [(ngModel)]="createdGarage.name" (keyup.enter)="createGarage()">
+          <input class="form-control form-control-lg"  placeholder="Name"  [(ngModel)]="createdGarage.name" (keyup.enter)="create()">
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" (click)="createGarage()"  data-bs-dismiss="modal" class="btn btn-primary">Create</button>
+          <button type="button" (click)="create()"  data-bs-dismiss="modal" class="btn btn-primary">Create</button>
         </div>
       </div>
     </div>
@@ -73,7 +73,7 @@
     </div>
   </div>
   <!-- ModalForUpdate -->
-  <div class="modal fade" id="staticBackdropUpdate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div (keyup.enter)="updateGarage(selectedGarage.id)"  class="modal fade" id="staticBackdropUpdate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered ">
       <div class="modal-content gradient-custom " *ngIf="selectedGarage">
         <div class="modal-header">

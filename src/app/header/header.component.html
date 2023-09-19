@@ -7,10 +7,11 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li *ngIf="userIsAuthenticated" class="nav-item"><a class="nav-link" routerLink="/profile">{{myDetails.name}}</a></li>
+        <li *ngIf="userIsAuthenticated" class="nav-item"><a class="nav-link" routerLink="/garage">My Garages</a></li>
+        <li *ngIf="userIsAuthenticated" class="nav-item"><a class="nav-link" routerLink="/shop">Shop</a></li>
+        <li  *ngIf="userIsAuthenticated" class="nav-item"><a class="nav-link" routerLink="/login"(click)="logout()">Logout</a></li>
         <li  *ngIf="!userIsAuthenticated" class="nav-item"><a class="nav-link" routerLink="/login">Login</a></li>
         <li  *ngIf="!userIsAuthenticated" class="nav-item"><a class="nav-link" routerLink="/signup">Signup</a></li>
-        <li *ngIf="userIsAuthenticated" class="nav-item"><a class="nav-link" routerLink="/garage">My Garages</a></li>
-        <li  *ngIf="userIsAuthenticated" class="nav-item"><a class="nav-link" routerLink="/login"(click)="logout()">Logout</a></li>
       </ul>
     </div>
   </div>

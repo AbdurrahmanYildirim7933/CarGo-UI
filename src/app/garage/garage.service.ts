@@ -2,19 +2,28 @@ import {Injectable, Input} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {UserDTO} from "../login/UserDTO";
 import {BehaviorSubject, Observable, Subject} from "rxjs";
-import {Car} from "../car-details/car";
 import {Garage} from "./garage";
-import {PreloadingFeature, Router} from "@angular/router";
+import {Router} from "@angular/router";
 import {ProfileService} from "../profile/profile.service";
 import {CookieService} from "ngx-cookie-service";
-import {reportUnhandledError} from "rxjs/internal/util/reportUnhandledError";
 import {Operation} from "fast-json-patch"
-import {ShopDTO} from "../shop/ShopDTO";
+
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class GarageService {
+
+ /* document= gql`
+    query{
+      garages {
+        id
+        name
+      }
+    }
+  `;*/
+
   apiUrl="http://localhost:8080";
   token :String = this.cookieService.get("MyCookie");
   data: Garage;
@@ -29,7 +38,6 @@ export class GarageService {
     const headers = this.profileService.createHeaders();
       return this.httpClient.get<Garage[]>(url,{headers});
   }
-
 
   getGarage(id:number):Observable<Garage>{
     const headers = this.profileService.createHeaders();
@@ -76,3 +84,4 @@ export class GarageService {
   }
 
 }
+

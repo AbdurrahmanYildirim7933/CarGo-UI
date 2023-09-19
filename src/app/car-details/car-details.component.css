@@ -25,7 +25,7 @@ a:hover {
 }
 
 .row.inner-scroll {
-  height: 445px;
+  height: 400px;
   overflow: auto;
 }
 
@@ -196,7 +196,7 @@ li {
     display: block;
     border-radius: 20px;
     height: 6px;
-    width: 55%;
+    width: 650%;
     background: yellow;
     margin: 14px 0
 }
@@ -228,7 +228,7 @@ li {
     display: block;
     border-radius: 20px;
     height: 6px;
-    width: 35%;
+    width: 55%;
     background: yellow;
     margin: 10px auto
   }

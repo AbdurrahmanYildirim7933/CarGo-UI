@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import {UserDTO} from "./UserDTO";
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
@@ -14,9 +14,11 @@ export class LoginService {
   apiUrl="http://localhost:8080";
   public token: string ='';
   isLoggedin: boolean = false;
-  private authStatusListener = new Subject<boolean>();
+  private authStatusListener:Subject<boolean> = new Subject<boolean>();
   constructor(private http: HttpClient, private router:Router,private cookieService:CookieService) {
   }
+
+
 
   login(user:UserDTO): void {
 
@@ -27,6 +29,7 @@ export class LoginService {
         console.log('Kullanıcı girişi başarılı:', response);
         this.router.navigate(['/main-page']);
         this.authStatusListener.next(true);
+        this.isLoggedin = true;
 
       },
       (error) => {
@@ -41,8 +44,6 @@ export class LoginService {
     // remove user from local storage to log user out
     this.cookieService.delete("MyCookie");
     this.isLoggedin = false;
-    this.authStatusListener.next(false);
-    this.router.navigate(['/login']);
     this.authStatusListener.next(false);
   }
 

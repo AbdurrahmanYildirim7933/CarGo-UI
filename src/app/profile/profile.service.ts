@@ -5,6 +5,7 @@ import {ProfileDetails} from "./profiledetails";
 import {CookieService} from "ngx-cookie-service";
 import {TokenInterceptor} from "../api-interceptor.service";
 
+
 @Injectable({
   providedIn: 'root'
 })

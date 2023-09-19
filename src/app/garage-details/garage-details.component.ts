@@ -33,6 +33,7 @@ export class GarageDetailsComponent implements OnInit {
   selectedModel:Model = new Model();
   imagesMap: Map<number,CarImage[]> = new Map<number, CarImage[]>();
   imagesArray : CarImage[]=[];
+  selectedCar: Car = new Car();
 
   constructor(protected garageService: GarageService,  private route:ActivatedRoute,private toaster:ToastrService,private carService:CarService) {
   }
@@ -55,14 +56,17 @@ export class GarageDetailsComponent implements OnInit {
     }
 
     goPage(page: number) {
+      if (page > 0 && page <= this.totalPages) {
         this.page = page;
         this.filterByName();
+      }else {
+        this.toaster.warning("Please enter a value between `1-"+this.totalPages+"`")
+      }
     }
 
-
   ngOnInit(): void {
+    this.filterByName();
     this.route.paramMap.subscribe(()=>{
-      this.filterByName();
         this.garage.id =+this.route.snapshot.paramMap.get('id')!;
     })
     this.getBrands();
@@ -124,6 +128,16 @@ export class GarageDetailsComponent implements OnInit {
       response => {
         this.selectedBrand.bindObject(response);
         console.log('My Car:', this.selectedBrand);
+      });
+    return this.selectedBrand;
+
+  }
+
+  getCar(id:number):Brand{
+    this.carService.getCar(id).subscribe(
+      response => {
+        this.selectedCar.bindObject(response);
+        console.log('My Car:', this.selectedCar);
       });
     return this.selectedBrand;
 
@@ -197,9 +211,5 @@ export class GarageDetailsComponent implements OnInit {
       })} )
 
   }
-
-
-    protected readonly isEmpty = isEmpty;
-
 
 }

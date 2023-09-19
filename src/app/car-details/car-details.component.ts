@@ -10,6 +10,7 @@ import {Brand} from "./brand";
 import {Model} from "./model";
 import {Observable} from "rxjs";
 import {HttpEventType, HttpResponse} from "@angular/common/http";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-car-details',
@@ -18,7 +19,7 @@ import {HttpEventType, HttpResponse} from "@angular/common/http";
 })
 export class CarDetailsComponent implements OnInit{
 
-  constructor(protected garageService: GarageService,private carService:CarService,  private route:ActivatedRoute,private router:Router) {
+  constructor(private carService:CarService,  private route:ActivatedRoute,private toaster:ToastrService,private router:Router) {
   }
 garageId:number = 0;
 car:Car = new Car();
@@ -191,6 +192,8 @@ car:Car = new Car();
   deleteCar(){
     this.carService.deleteCar(this.car.id).subscribe(res=> {
     })
+    this.router.navigate(["/garage/"+this.garageId]);
+
   }
 
   send() {
@@ -227,17 +230,20 @@ car:Car = new Car();
 
       }
 
-  uploadFiles(){
-
-    for (let i = 0; i < this.selectedFiles.length; i++) {
-      this.readFile(i).then(res=>{
-        if (this.selectedFiles.length -1 == i){
-          this.send();
-        }
-      });
+  uploadFiles() {
+    if(!this.selectedFiles || this.selectedFiles.length == 0){
+this.toaster.warning("Please select images")
+    }
+    else{
+      for (let i = 0; i < this.selectedFiles.length; i++) {
+        this.readFile(i).then(res => {
+          if (this.selectedFiles.length - 1 == i) {
+            this.send();
+          }
+        });
+      }
     }
   }
-
   readFile(i:number){
     return new Promise((res,reject)=>{
       let name = this.selectedFiles[i].name
@@ -282,8 +288,7 @@ car:Car = new Car();
           }
         );
     } else {
-      this.clss = 'rd';
-      this.msg = 'You must select at least one product';
+     this.toaster.error("Please select/check at least one image")
     }
   }
 

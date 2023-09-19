@@ -1,6 +1,5 @@
 import { Component,ViewChild } from '@angular/core';
 
-
 import {VERSION} from "@angular/cdk";
 import {NotificationService} from "./notification.service";
 @Component({

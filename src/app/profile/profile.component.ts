@@ -22,17 +22,25 @@ export class ProfileComponent implements OnInit{
   }
     ngOnInit(): void {
       this.getProfileData();
-    }
+      /*this.apollo.watchQuery({
+        query: gql`
+        query sec{
+          user(
 
-    public getMyId():number{
-      return this.myDetails.id;
+            name,
+            lastName
+            )
+        }
+        `
+      }).valueChanges.subscribe((result:any)=>{
+
+      })*/
     }
 
     getProfileData(): void {
       this.profileService.profile().subscribe(
         (response: any) => {
-          this.myDetails.name = response["name"];
-          this.myDetails.lastName= response["lastName"];
+          this.myDetails.bindObject(response);
         },
         (error: any) => {
           console.error('Error retrieving profile data');

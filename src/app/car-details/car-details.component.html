@@ -1,8 +1,8 @@
 <div class="container py-4 my-4 mx-auto d-flex flex-column">
     <div class="header">
         <div class="row r1">
-            <h1>Car ID : {{car.id}}</h1>
-          <button type="button" class="btn btn-danger" routerLink="/garage/{{garageId}}" (click)="deleteCar()">Delete Car</button>
+            <h1 class="col-md-1">Car ID : {{car.id}}</h1>
+          <button  type="button" class="col-md-1 btn btn-outline-danger"  (click)="deleteCar()">Delete Car</button>
     </div>
     <div class="container-body mt-4">
         <div class="row r3">
@@ -62,12 +62,13 @@
                           <div class="card-body text-center">
                             <!-- Car Add image-->
                             <div id="carouselExampleDark" class="carousel carousel-dark slide col-xxl-12" data-bs-ride="carousel" width="100%" height="100%">
-                              <div class="carousel-inner myt des" >
+                              <div class="carousel-inner" >
                                 <div *ngFor="let image of images" class="carousel-item active" data-bs-interval="10000">
                                   <img src="{{image.filebase64}}" class="d-block w-100" alt="...">
                                   <h1 class="carousel-item-end text-warning">{{image.name}}</h1>
                                 </div>
                               </div>
+                              <hr>
                               <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Previous</span>
@@ -92,7 +93,7 @@
     </div>
     <div class="footer d-flex flex-column mt-4">
         <div class="row r4">
-            <div class="col-md-2 myt des"><a>Vehicle damage record</a></div>
+            <div class="col-md-2 des"><a>Vehicle damage record</a></div>
         </div>
     </div>
 </div>
@@ -104,9 +105,9 @@
         <button type="button" class="close" data-bs-dismiss="modal">×</button>
 
       </div>
-      <div class="modal-body choice-modal">
+      <div class="modal-body choice-modal ">
         <div class="container-fluid">
-          <div class="row inner-scroll myt des">
+          <div class="row inner-scroll">
             <div class="col-md-1">
               <h3 class="text-secondary">Select all images
                 <input type="checkbox" (change)="checkAllCheckBox($event.target)" [checked]="isAllCheckBoxChecked()">
@@ -126,50 +127,46 @@
                 </div>
               </div>
             </div>
-          </div>
-          <!-- Add picture block-->
-          <div *ngFor="let progressInfo of progressInfos" class="mb-2">
-            <span>{{ progressInfo.fileName }}</span>
-            <div class="progress">
-              <div
-                class="progress-bar progress-bar-info progress-bar-striped"
-                role="progressbar"
-                attr.aria-valuenow="{{ progressInfo.value }}"
-                aria-valuemin="0"
-                aria-valuemax="100"
-                [ngStyle]="{ width: progressInfo.value + '%' }"
-              >
-                {{ progressInfo.value }}%
+            <!-- Add picture block-->
+            <div *ngFor="let progressInfo of progressInfos" class="mb-2">
+              <span>{{ progressInfo.fileName }}</span>
+              <div class="progress">
+                <div
+                  class="progress-bar progress-bar-info progress-bar-striped"
+                  role="progressbar"
+                  attr.aria-valuenow="{{ progressInfo.value }}"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  [ngStyle]="{ width: progressInfo.value + '%' }"
+                >
+                  {{ progressInfo.value }}%
+                </div>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-8">
-              <label class="btn btn-default p-0">
-                <input type="file" accept="image/*" multiple (change)="selectFiles($event)" />
-              </label>
+            <div>
+              <h2 f *ngIf="selectedFiles">Images which u want to add :</h2>
+              <img *ngFor='let preview of previews' [src]="preview" class="preview col-xl-3">
             </div>
-          </div>
-          <button [disabled]="!selectedFiles"
-                  (click)="uploadFiles()" class="btn btn-outline-warning" type="button">Upload new image</button>
-          <div>
-            <h2 f *ngIf="selectedFiles">Images which u want to add :</h2>
-            <img *ngFor='let preview of previews' [src]="preview" class="preview col-xl-3">
-          </div>
-          <div *ngIf="message.length" class="alert alert-secondary my-3" role="alert">
-            <ul *ngFor="let msg of message; let i = index">
-              <li>{{ msg }}</li>
-            </ul>
-          </div>
-          <div *ngIf="msg" [ngClass]="clss">{{msg}}</div>
-          <!-- Add picture block ends-->
+            <div *ngIf="message.length" class="alert alert-secondary my-3" role="alert">
+              <ul *ngFor="let msg of message; let i = index">
+                <li>{{ msg }}</li>
+              </ul>
+            </div>
+            <div *ngIf="msg" [ngClass]="clss">{{msg}}</div>
+            <!-- Add picture block ends-->
+            </div>
           <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-danger" (click)="deleteImages()">Delete choosen images</button>
+                <label class="btn btn-default p-0">
+                  <input type="file" accept="image/*" multiple (change)="selectFiles($event)" />
+                </label>
+              <button type="button" class="btn btn-outline-warning" (click)="uploadFiles()">Upload new image</button>
+            <button type="button" class="btn btn-danger" (click)="deleteImages()">Delete choosen images</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
               </div>
         </div>
 
       </div>
     </div>
   </div>
+</div>
 </div>
