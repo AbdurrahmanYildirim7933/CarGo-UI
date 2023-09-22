@@ -142,19 +142,25 @@
   <nav aria-label="...">
     <ul class="pagination">
       <li class="page-item">
+        <a class="page-link" (click)="goPage(1)">First</a>
+      </li>
+      <li class="page-item">
         <a (click)="setPage('negative')"  class="page-link">Previous</a>
       </li>
-      <input [(ngModel)]="page" (keyup.enter)="goPage(page)" >
+      <input class="page-item" [(ngModel)]="page" (keyup.enter)="goPage(page)" >
       <li class="page-item">
         <a (click)="setPage('positive')" class="page-link">Next</a>
       </li>
       <li class="page-item">
-        <a class="page-link">Total Pages : {{totalPages}}</a>
+        <a class="page-link" (click)="goPage(this.totalPages)">Last</a>
       </li>
       <li class="page-item">
-        <a class="page-link">Total Garages : {{totalItems}}</a>
+        <a class="page-link">Total Pages: {{totalPages}}</a>
       </li>
-      <span class="col-md-5"> </span>
+      <li class="page-item">
+        <a class="page-link">Go Last Page: {{totalItems}}</a>
+      </li>
+      <span class="col-md"> </span>
         <li class="page-item">
         <a class="page-link">Garages on this page  : {{pageItems}}</a>
       </li>

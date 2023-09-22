@@ -18,7 +18,6 @@ import {ShopComponent} from "./shop/shop.component";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import { GarageDetailsComponent } from './garage-details/garage-details.component';
 import { CarDetailsComponent } from './car-details/car-details.component';
-import { PostsComponent } from './posts/posts.component';
 import {GraphQLModule} from "./graphql.module";
 
 @NgModule({
@@ -35,7 +34,6 @@ import {GraphQLModule} from "./graphql.module";
     ShopComponent,
     GarageDetailsComponent,
     CarDetailsComponent,
-    PostsComponent,
      ],
   imports: [
     GraphQLModule,

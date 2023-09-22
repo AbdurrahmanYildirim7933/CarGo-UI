@@ -5,12 +5,12 @@ import {CookieService} from "ngx-cookie-service";
 import {Router} from "@angular/router";
 import {Car} from "../car-details/car";
 import {compare} from "fast-json-patch/commonjs/duplex";
-import {BehaviorSubject, Observable} from "rxjs";
+import {BehaviorSubject, count, Observable} from "rxjs";
 import * as jsonpatch from 'fast-json-patch';
 import {ToastrService} from "ngx-toastr";
 import {CarService} from "../car-details/car.service";
 import {Apollo} from "apollo-angular";
-import {CREATE_GARAGE} from "./mutations.graphql";
+import {CREATE_GARAGE, GET_GARAGES} from "./mutations.graphql";
 import {HttpHeaders} from "@angular/common/http";
 
 
@@ -76,6 +76,10 @@ export class GarageComponent implements OnInit,OnDestroy {
     }
   }
 
+  goLastPage(){
+    this.page = this.totalPages;
+  }
+
 
   getGarages(): Garage[] {
 
@@ -95,16 +99,6 @@ export class GarageComponent implements OnInit,OnDestroy {
   ngOnInit(): void {
     //this.sortByName();
     this.filterByName();
-    /*this.apollo.watchQuery({
-      query : gql`
-      query sec{
-        garages{
-          id,
-          name,
-        }
-      }`
-    })*/
-
   }
 
   getPager(totalItem: number, pageSize: number = 3, currentPage: number = 1): Pager {
@@ -138,29 +132,7 @@ export class GarageComponent implements OnInit,OnDestroy {
       ));
   }
 
-  create(): void {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.cookieService.get("MyCookie")}`, // Token burada ekleniyor
-    });
-    this.apollo.mutate({
-      mutation: CREATE_GARAGE,
-      variables: {
-        dto: {
-          name: this.createdGarage.name
-        }
-      },
-      context: {
-        headers, // Headers'i isteğe ekleyin
-      },
-    }).subscribe((res:any) => {console.log("Succesfull")
-      this.filterByName();
-      alert("Garaj eklendi, garaj bilgileri:" + res);
 
-  },
-        (err: any) =>{
-    alert(err);
-    })
-  }
   updateGarage(id: number) {
    let _temp=new Garage()
       _temp.bindObject(this.selectedGarage);
@@ -231,13 +203,74 @@ export class GarageComponent implements OnInit,OnDestroy {
   }
 
 
+  create(): void {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.cookieService.get("MyCookie")}`, // Token burada ekleniyor
+    });
+    this.apollo.mutate({
+      mutation: CREATE_GARAGE,
+      variables: {
+        dto: {
+          name: this.createdGarage.name
+        }
+      },
+      context: {
+        headers, // Headers'i isteğe ekleyin
+      },
+    }).subscribe((res:any) => {console.log("Succesfull")
+        this.filterByName();
+        alert(
+          "Garaj eklendi, eklenen garajın isim bilgileri:" + res.data.createGarage.name + "\n" +
+          "Garaj sahibinin ismi :" + res.data.createGarage.owner.name
+        );
+      },
+      (err: any) =>{
+        alert(err);
+      })
+  }
 
   filterByName() {
     this.myGarage = new Array();
     this.searchGarage.id = Number(this.searchGarageId)
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.cookieService.get("MyCookie")}`, // Token burada ekleniyor
+    });
+    this.apollo.mutate({
+  mutation:GET_GARAGES,
+  variables:{
+    page:this.page-1,
+    size:this.size,
+    sortBy:"name",
+    sortDirection:"ASC",
+    garageFilterDTO:this.searchGarage
+  },
+  context: {
+    headers, // Headers'i isteğe ekleyin
+  },
+  }).subscribe((res:any) => {
+  if (Array.isArray(res.data.getGarages.garages)) {
+    res.data.getGarages.garages.forEach((g: Garage) => {
+      let _garage = new Garage();
+      _garage.bindObject(g);
+      this.myGarage.push(_garage);
+    });
+    this.totalItems = res.data.getGarages.count;
+    this.totalPages = res.data.getGarages.pages;
+    this.pageItems = res.data.getGarages.garages.length;
+    console.log('My Garage:', this.myGarage);
+    console.log("Sayııı"+res.data.count)
+  }
+},
+(err: any) =>{
+    if (err=="ApolloError: Http failure response for http://localhost:8080/graphql: 403 OK"){
+      alert("Not Authorized,Login Please ")
+    }else {
+      alert(err);
+      console.log("Hata var")
+    }
+  })
 
-
-      this.garageService.filterByName(this.searchGarage, this.page - 1, this.size).subscribe(
+     /* this.garageService.filterByName(this.searchGarage, this.page - 1, this.size).subscribe(
       (response: any) => {
         response["garages"].forEach((g: Garage) => {
             let _garage = new Garage();
@@ -251,7 +284,7 @@ export class GarageComponent implements OnInit,OnDestroy {
         console.log('My Garage:', this.myGarage);
       }, error => {
         console.log(error)
-      })
+      })*/  //##############################RESTAPI ILE GET_GARAGES#########################
 
   }
 

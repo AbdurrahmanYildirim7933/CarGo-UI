@@ -27,7 +27,6 @@ export class LoginService {
         this.cookieService.set("MyCookie", response["token"], 1);
         document.cookie
         console.log('Kullanıcı girişi başarılı:', response);
-        this.router.navigate(['/main-page']);
         this.authStatusListener.next(true);
         this.isLoggedin = true;
 
